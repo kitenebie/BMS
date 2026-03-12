@@ -51,7 +51,7 @@ export function AIP() {
       {activeTab === "program" && (
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-orange-500">AIP Program</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-orange-500">A.I.P Program</h1>
             <p className="text-slate-500 mt-1">This is your Annual Investment Plan Program Table.</p>
           </div>
           <div className="flex items-center gap-2">
@@ -59,10 +59,6 @@ export function AIP() {
               <Plus className="h-4 w-4" />
               Add Program
             </Button>
-            <AddAIPSubProgramModal
-              open={isProgramModalOpen}
-              onOpenChange={setIsProgramModalOpen}
-            />
           </div>
         </div>
       )}
@@ -100,6 +96,13 @@ export function AIP() {
           onProgramModalChange={setIsProgramModalOpen}
         />
       )}
+
+      {/* Modals */}
+{activeTab === "program" && (
+  <>
+    {/* Modal is rendered in AipProgramTable via props */}
+  </>
+)}
     </div>
   )
 }
