@@ -1,0 +1,110 @@
+``
+MODAL NAME: AddMainAIPModal
+TITLE:
+Add New AIP
+HEADER ACTIONS:
+[-] Remove AIP Section
+[+] Add AIP Section
+[X] Close Modal
+SECTION: Select AIP
+FIELD:
+Select AIP for:
+TYPE: Dropdown
+PLACEHOLDER: Select AIP
+SECTION: AIP INFORMATION
+ROW 1
+Field: AIP Code
+Type: Text Input
+Placeholder: Enter an AIP Code
+Field: Department
+Type: Dropdown
+Placeholder: Select departments
+Field: Sector
+Type: Dropdown
+Placeholder: Select sector
+Field: Sub-sector
+Type: Dropdown
+Placeholder: Select sub-sector
+ROW 2
+Field: Date Started
+Type: Date Picker
+Default: 01/01/2025
+Field: Date Completed
+Type: Date Picker
+Default: 31/12/2025
+Field: Service Type
+Type: Dropdown
+Placeholder: Select service
+Field: Fund Type
+Type: Dropdown
+Placeholder: Select funds
+ROW 3
+Field: Expense Type
+Type: Dropdown
+Placeholder: Select expense type
+Field: Amount
+Type: Currency Input
+Placeholder: Enter AIP Amount
+Field: CC Typology Code
+Type: Dropdown
+Placeholder: Select CC Typology
+Field: CC Amount
+Type: Currency Input
+Placeholder: Enter CC Amount
+ROW 4
+Field: Project / Program / Activity
+Type: Textarea
+Rows: 3
+Placeholder: ...
+Field: Expected Output
+Type: Textarea
+Rows: 3
+Placeholder: ...
+MULTIPLE ENTRY SUPPORT
+The modal allows multiple AIP blocks.
+Controls:
+[+] Add new AIP block
+[-] Remove AIP block
+Each block repeats the full AIP Information section.
+FOOTER ACTIONS
+LEFT:
+Cancel Button
+RIGHT:
+Save Button
+Buttons:
+[Cancel]
+[Save ✓]
+VALIDATION RULES
+Required Fields:
+AIP Code
+Department
+Sector
+Amount
+Project/Program/Activity
+Optional Fields:
+CC Typology Code
+CC Amount
+Expected Output
+Date Validation:
+Date Completed must be >= Date Started
+Amount Validation:
+Must be numeric and >= 0
+DATA STRUCTURE EXAMPLE
+{
+"aip_code": "1000-000-2-01-01-000-000",
+"department": "Office of the City Mayor",
+"sector": "General Administrative",
+"sub_sector": "Executive Management",
+"date_started": "2025-01-01",
+"date_completed": "2025-12-31",
+"service_type": "Administrative",
+"fund_type": "General Fund",
+"expense_type": "Maintenance and Other Operating Expenses",
+"amount": 5000000,
+"cc_typology_code": "CC-001",
+"cc_amount": 100000,
+"program_activity": "Human Resource Management Support",
+"expected_output": "Efficient personnel administration and HR support"
+}
+Apply style changes to the selected element(s).
+``
