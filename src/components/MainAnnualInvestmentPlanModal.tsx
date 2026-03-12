@@ -10,7 +10,9 @@ import {
   Loader2, 
   AlertTriangle,
   Info,
-  CheckCircle2
+  CheckCircle2,
+  Plus,
+  Trash2
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -78,27 +80,37 @@ const subSectorsBySector: Record<string, string[]> = {
   ],
 }
 
-const initialFormState = {
+export type MainAIPEntry = {
+  id: string
+  department: string
+  sector: string
+  subSector: string
+  aipCode: string
+  projectProgramActivity: string
+}
+
+const createEmptyEntry = (): MainAIPEntry => ({
+  id: Math.random().toString(36).substr(2, 9),
   department: "",
   sector: "",
   subSector: "",
   aipCode: "",
   projectProgramActivity: "",
-}
+})
 
 interface MainAnnualInvestmentPlanModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  defaultValues?: typeof initialFormState
+  showRepeater?: boolean
 }
 
 export function MainAnnualInvestmentPlanModal({ 
   open, 
   onOpenChange,
-  defaultValues
+  showRepeater = true,
 }: MainAnnualInvestmentPlanModalProps) {
-  const [formData, setFormData] = useState(initialFormState)
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [entries, setEntries] = useState<MainAIPEntry[]>([createEmptyEntry()])
+  const [errors, setErrors] = useState<Record<string, Record<string, string>>>({})
   const [isDirty, setIsDirty] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showConfirmClose, setShowConfirmClose] = useState(false)
@@ -106,66 +118,91 @@ export function MainAnnualInvestmentPlanModal({
   // Initialize form
   useEffect(() => {
     if (open) {
-      if (defaultValues) {
-        setFormData(defaultValues)
-      } else {
-        setFormData(initialFormState)
-      }
+      setEntries([createEmptyEntry()])
       setErrors({})
       setIsDirty(false)
     }
-  }, [open, defaultValues])
+  }, [open])
 
-  const handleChange = (field: keyof typeof formData, value: string) => {
-    setFormData((prev) => {
-      const newData = { ...prev, [field]: value }
+  const handleEntryChange = (entryId: string, field: keyof MainAIPEntry, value: string) => {
+    setEntries(prev => prev.map(entry => {
+      if (entry.id !== entryId) return entry
+      
+      let updatedEntry = { ...entry, [field]: value }
       
       // Reset sub-sector if sector changes
       if (field === "sector") {
-        newData.subSector = ""
+        updatedEntry.subSector = ""
       }
       
       // Auto-generate AIP Code hint based on department (mock logic)
-      if (field === "department" && !prev.aipCode) {
+      if (field === "department" && !entry.aipCode) {
         const deptCode = value.split(" | ")[0]
         if (deptCode) {
-          newData.aipCode = `1000-000-${deptCode}-000-000`
+          updatedEntry.aipCode = `1000-000-${deptCode}-000-000`
         }
       }
       
-      return newData
-    })
+      return updatedEntry
+    }))
     setIsDirty(true)
     
     // Clear error for this field
-    if (errors[field]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev }
-        delete newErrors[field]
-        return newErrors
-      })
+    if (errors[entryId]?.[field]) {
+      setErrors(prev => ({
+        ...prev,
+        [entryId]: {
+          ...prev[entryId],
+          [field]: ""
+        }
+      }))
     }
   }
 
+  const addEntry = () => {
+    setEntries(prev => [...prev, createEmptyEntry()])
+    setIsDirty(true)
+  }
+
+  const removeEntry = (entryId: string) => {
+    if (entries.length > 1) {
+      setEntries(prev => prev.filter(entry => entry.id !== entryId))
+      setIsDirty(true)
+    }
+  }
+
+  const validateEntry = (entry: MainAIPEntry): Record<string, string> => {
+    const entryErrors: Record<string, string> = {}
+    
+    if (!entry.department) entryErrors.department = "Department is required"
+    if (!entry.sector) entryErrors.sector = "Sector is required"
+    if (!entry.subSector) entryErrors.subSector = "Sub-sector is required"
+    if (!entry.aipCode) {
+      entryErrors.aipCode = "AIP Code is required"
+    } else if (!/^[0-9-]+$/.test(entry.aipCode)) {
+      entryErrors.aipCode = "AIP Code format is invalid"
+    }
+    if (!entry.projectProgramActivity.trim()) {
+      entryErrors.projectProgramActivity = "Project / Program / Activity is required"
+    }
+    
+    return entryErrors
+  }
+
   const validateForm = () => {
-    const newErrors: Record<string, string> = {}
-
-    if (!formData.department) newErrors.department = "Department is required"
-    if (!formData.sector) newErrors.sector = "Sector is required"
-    if (!formData.subSector) newErrors.subSector = "Sub-sector is required"
+    const allErrors: Record<string, Record<string, string>> = {}
+    let hasErrors = false
     
-    if (!formData.aipCode) {
-      newErrors.aipCode = "AIP Code is required"
-    } else if (!/^[0-9-]+$/.test(formData.aipCode)) {
-      newErrors.aipCode = "AIP Code format is invalid"
-    }
+    entries.forEach(entry => {
+      const entryErrors = validateEntry(entry)
+      if (Object.keys(entryErrors).length > 0) {
+        allErrors[entry.id] = entryErrors
+        hasErrors = true
+      }
+    })
     
-    if (!formData.projectProgramActivity.trim()) {
-      newErrors.projectProgramActivity = "Project / Program / Activity is required"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    setErrors(allErrors)
+    return !hasErrors
   }
 
   const handleSave = () => {
@@ -179,7 +216,7 @@ export function MainAnnualInvestmentPlanModal({
     setTimeout(() => {
       setIsSubmitting(false)
       setIsDirty(false)
-      toast.success("Main AIP saved successfully")
+      toast.success(`${entries.length} Main AIP(s) saved successfully`)
       onOpenChange(false)
     }, 1500)
   }
@@ -206,7 +243,18 @@ export function MainAnnualInvestmentPlanModal({
     onOpenChange(false)
   }
 
-  const availableSubSectors = formData.sector ? subSectorsBySector[formData.sector] || [] : []
+  const getAvailableSubSectors = (sector: string) => {
+    return subSectorsBySector[sector] || []
+  }
+
+  const getEntrySummary = (entry: MainAIPEntry) => {
+    return {
+      department: entry.department || "Not selected",
+      sector: entry.sector || "Not selected",
+      subSector: entry.subSector || "Not selected",
+      aipCode: entry.aipCode || "Not generated",
+    }
+  }
 
   return (
     <>
@@ -214,7 +262,7 @@ export function MainAnnualInvestmentPlanModal({
         if (!val) handleCloseClick()
       }}>
         <DialogContent 
-          className="max-w-[1180px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50"
+          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50"
           onInteractOutside={handleInteractOutside}
           hideCloseButton
         >
@@ -233,7 +281,7 @@ export function MainAnnualInvestmentPlanModal({
                   </Badge>
                 </div>
                 <DialogDescription className="text-slate-500 text-base">
-                  Create or update a primary AIP entry for a department, sector, and program classification.
+                  Create primary AIP entries for departments, sectors, and program classifications.
                 </DialogDescription>
               </div>
               <Button 
@@ -248,155 +296,193 @@ export function MainAnnualInvestmentPlanModal({
             </div>
           </div>
 
-          {/* Scrollable Form Body */}
-          <div className="overflow-y-auto max-h-[calc(88vh-160px)] p-6 space-y-8">
-            
-            {/* SECTION 1: CLASSIFICATION DETAILS */}
-            <section className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="bg-slate-50/80 border-b border-slate-100 px-5 py-3 flex items-center gap-2">
-                <Layers3 className="h-4 w-4 text-slate-500" />
-                <h3 className="font-semibold text-slate-800">Classification Details</h3>
-              </div>
-              
-              <div className="p-5 flex flex-col xl:flex-row gap-8">
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="space-y-2 lg:col-span-2">
-                    <Label htmlFor="department" className="text-slate-700 font-medium">Department <span className="text-red-500">*</span></Label>
-                    <Select value={formData.department} onValueChange={(val) => handleChange("department", val)}>
-                      <SelectTrigger id="department" className={`h-11 ${errors.department ? "border-red-500 ring-red-500" : ""}`}>
-                        <SelectValue placeholder="Select department" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {departments.map((dept) => (
-                          <SelectItem key={dept} value={dept}>{dept}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.department && <p className="text-xs text-red-500 font-medium">{errors.department}</p>}
-                  </div>
-
-                  <div className="space-y-2 lg:col-span-2">
-                    <Label htmlFor="sector" className="text-slate-700 font-medium">Sector <span className="text-red-500">*</span></Label>
-                    <Select value={formData.sector} onValueChange={(val) => handleChange("sector", val)}>
-                      <SelectTrigger id="sector" className={`h-11 ${errors.sector ? "border-red-500 ring-red-500" : ""}`}>
-                        <SelectValue placeholder="Select sector" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {sectors.map((sector) => (
-                          <SelectItem key={sector} value={sector}>{sector}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.sector && <p className="text-xs text-red-500 font-medium">{errors.sector}</p>}
-                  </div>
-
-                  <div className="space-y-2 lg:col-span-2">
-                    <Label htmlFor="subSector" className="text-slate-700 font-medium">Sub-sector <span className="text-red-500">*</span></Label>
-                    <Select 
-                      value={formData.subSector} 
-                      onValueChange={(val) => handleChange("subSector", val)}
-                      disabled={!formData.sector}
-                    >
-                      <SelectTrigger id="subSector" className={`h-11 ${errors.subSector ? "border-red-500 ring-red-500" : ""}`}>
-                        <SelectValue placeholder={formData.sector ? "Select sub-sector" : "Select a sector first"} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {availableSubSectors.map((sub) => (
-                          <SelectItem key={sub} value={sub}>{sub}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.subSector && <p className="text-xs text-red-500 font-medium">{errors.subSector}</p>}
-                  </div>
-
-                  <div className="space-y-2 lg:col-span-2">
-                    <Label htmlFor="aipCode" className="text-slate-700 font-medium">AIP Code <span className="text-red-500">*</span></Label>
-                    <div className="relative">
-                      <Hash className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
-                      <Input 
-                        id="aipCode" 
-                        value={formData.aipCode} 
-                        onChange={(e) => handleChange("aipCode", e.target.value)}
-                        placeholder="e.g. 1000-000-2-01-01-000-000"
-                        className={`pl-9 h-11 font-mono text-slate-700 ${errors.aipCode ? "border-red-500 ring-red-500" : ""}`}
-                      />
+          {/* Scrollable Form Body - Repeater */}
+          <div className="overflow-y-auto max-h-[calc(90vh-180px)] p-6 space-y-2">
+            {entries.map((entry, index) => {
+              const summary = getEntrySummary(entry)
+              return (
+                <div key={entry.id} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                  {/* Entry Header */}
+                  <div className="bg-slate-50/80 border-b border-slate-100 px-5 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-slate-800">AIP Entry #{index + 1}</span>
                     </div>
-                    {errors.aipCode ? (
-                      <p className="text-xs text-red-500 font-medium">{errors.aipCode}</p>
-                    ) : (
-                      <p className="text-xs text-slate-500">Use the official AIP master code format.</p>
+                    {entries.length > 1 && showRepeater && (
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        onClick={() => removeEntry(entry.id)}
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Remove
+                      </Button>
                     )}
                   </div>
-                </div>
 
-                {/* Live Summary Preview Card */}
-                <div className="w-full xl:w-80 bg-slate-50 border border-slate-200 rounded-xl p-5 shrink-0 flex flex-col">
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                    <Info className="h-3.5 w-3.5" />
-                    Classification Preview
-                  </h4>
-                  <div className="space-y-4 flex-1">
-                    <div>
-                      <span className="text-xs text-slate-500 block mb-1">Department</span>
-                      <span className="text-sm font-medium text-slate-900 line-clamp-2">
-                        {formData.department || <span className="text-slate-400 italic">Not selected</span>}
-                      </span>
+                  <div className="p-5 space-y-6">
+                    {/* Classification Details */}
+                    <div className="flex flex-col xl:flex-row gap-8">
+                      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="space-y-2 lg:col-span-2">
+                          <Label htmlFor={`department-${entry.id}`} className="text-slate-700 font-medium">
+                            Department <span className="text-red-500">*</span>
+                          </Label>
+                          <Select 
+                            value={entry.department} 
+                            onValueChange={(val) => handleEntryChange(entry.id, "department", val)}
+                          >
+                            <SelectTrigger id={`department-${entry.id}`} className={`h-11 ${errors[entry.id]?.department ? "border-red-500 ring-red-500" : ""}`}>
+                              <SelectValue placeholder="Select department" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {departments.map((dept) => (
+                                <SelectItem key={dept} value={dept}>{dept}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors[entry.id]?.department && <p className="text-xs text-red-500 font-medium">{errors[entry.id].department}</p>}
+                        </div>
+
+                        <div className="space-y-2 lg:col-span-2">
+                          <Label htmlFor={`sector-${entry.id}`} className="text-slate-700 font-medium">
+                            Sector <span className="text-red-500">*</span>
+                          </Label>
+                          <Select 
+                            value={entry.sector} 
+                            onValueChange={(val) => handleEntryChange(entry.id, "sector", val)}
+                          >
+                            <SelectTrigger id={`sector-${entry.id}`} className={`h-11 ${errors[entry.id]?.sector ? "border-red-500 ring-red-500" : ""}`}>
+                              <SelectValue placeholder="Select sector" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {sectors.map((sector) => (
+                                <SelectItem key={sector} value={sector}>{sector}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors[entry.id]?.sector && <p className="text-xs text-red-500 font-medium">{errors[entry.id].sector}</p>}
+                        </div>
+
+                        <div className="space-y-2 lg:col-span-2">
+                          <Label htmlFor={`subSector-${entry.id}`} className="text-slate-700 font-medium">
+                            Sub-sector <span className="text-red-500">*</span>
+                          </Label>
+                          <Select 
+                            value={entry.subSector} 
+                            onValueChange={(val) => handleEntryChange(entry.id, "subSector", val)}
+                            disabled={!entry.sector}
+                          >
+                            <SelectTrigger id={`subSector-${entry.id}`} className={`h-11 ${errors[entry.id]?.subSector ? "border-red-500 ring-red-500" : ""}`}>
+                              <SelectValue placeholder={entry.sector ? "Select sub-sector" : "Select a sector first"} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {getAvailableSubSectors(entry.sector).map((sub) => (
+                                <SelectItem key={sub} value={sub}>{sub}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors[entry.id]?.subSector && <p className="text-xs text-red-500 font-medium">{errors[entry.id].subSector}</p>}
+                        </div>
+
+                        <div className="space-y-2 lg:col-span-2">
+                          <Label htmlFor={`aipCode-${entry.id}`} className="text-slate-700 font-medium">
+                            AIP Code <span className="text-red-500">*</span>
+                          </Label>
+                          <div className="relative">
+                            <Hash className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                            <Input 
+                              id={`aipCode-${entry.id}`}
+                              value={entry.aipCode}
+                              onChange={(e) => handleEntryChange(entry.id, "aipCode", e.target.value)}
+                              placeholder="e.g. 1000-000-2-01-01-000-000"
+                              className={`pl-9 h-11 font-mono text-slate-700 ${errors[entry.id]?.aipCode ? "border-red-500 ring-red-500" : ""}`}
+                            />
+                          </div>
+                          {errors[entry.id]?.aipCode ? (
+                            <p className="text-xs text-red-500 font-medium">{errors[entry.id].aipCode}</p>
+                          ) : (
+                            <p className="text-xs text-slate-500">Use the official AIP master code format.</p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Live Summary Preview Card */}
+                      <div className="w-full xl:w-80 bg-slate-50 border border-slate-200 rounded-xl p-5 shrink-0 flex flex-col">
+                        <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                          <Info className="h-3.5 w-3.5" />
+                          Classification Preview
+                        </h4>
+                        <div className="space-y-4 flex-1">
+                          <div>
+                            <span className="text-xs text-slate-500 block mb-1">Department</span>
+                            <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                              {summary.department}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-xs text-slate-500 block mb-1">Sector</span>
+                            <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                              {summary.sector}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-xs text-slate-500 block mb-1">Sub-sector</span>
+                            <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                              {summary.subSector}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="pt-4 mt-4 border-t border-slate-200">
+                          <span className="text-xs text-slate-500 block mb-1">AIP Code</span>
+                          <span className="text-base font-bold text-indigo-700 font-mono break-all">
+                            {summary.aipCode}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-xs text-slate-500 block mb-1">Sector</span>
-                      <span className="text-sm font-medium text-slate-900 line-clamp-2">
-                        {formData.sector || <span className="text-slate-400 italic">Not selected</span>}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-xs text-slate-500 block mb-1">Sub-sector</span>
-                      <span className="text-sm font-medium text-slate-900 line-clamp-2">
-                        {formData.subSector || <span className="text-slate-400 italic">Not selected</span>}
-                      </span>
+
+                    {/* Program Details */}
+                    <div className="space-y-2">
+                      <Label htmlFor={`projectProgramActivity-${entry.id}`} className="text-slate-700 font-medium">
+                        Project / Program / Activity <span className="text-red-500">*</span>
+                      </Label>
+                      <Textarea 
+                        id={`projectProgramActivity-${entry.id}`}
+                        value={entry.projectProgramActivity}
+                        onChange={(e) => handleEntryChange(entry.id, "projectProgramActivity", e.target.value)}
+                        placeholder="Enter the official office, project, or program title..."
+                        className={`min-h-[120px] text-base resize-y p-4 ${errors[entry.id]?.projectProgramActivity ? "border-red-500 ring-red-500" : ""}`}
+                      />
+                      {errors[entry.id]?.projectProgramActivity ? (
+                        <p className="text-xs text-red-500 font-medium">{errors[entry.id].projectProgramActivity}</p>
+                      ) : (
+                        <p className="text-xs text-slate-500">Enter the official office, project, or program title.</p>
+                      )}
                     </div>
                   </div>
-                  <div className="pt-4 mt-4 border-t border-slate-200">
-                    <span className="text-xs text-slate-500 block mb-1">AIP Code</span>
-                    <span className="text-base font-bold text-indigo-700 font-mono break-all">
-                      {formData.aipCode || <span className="text-slate-400 italic font-sans text-sm font-normal">Not generated</span>}
-                    </span>
-                  </div>
                 </div>
-              </div>
-            </section>
+              )
+            })}
 
-            {/* SECTION 2: PROGRAM DETAILS */}
-            <section className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="bg-slate-50/80 border-b border-slate-100 px-5 py-3 flex items-center gap-2">
-                <FileText className="h-4 w-4 text-slate-500" />
-                <h3 className="font-semibold text-slate-800">Program Details</h3>
-              </div>
-              <div className="p-5">
-                <div className="space-y-2">
-                  <Label htmlFor="projectProgramActivity" className="text-slate-700 font-medium">Project / Program / Activity <span className="text-red-500">*</span></Label>
-                  <Textarea 
-                    id="projectProgramActivity" 
-                    value={formData.projectProgramActivity} 
-                    onChange={(e) => handleChange("projectProgramActivity", e.target.value)}
-                    placeholder="Enter the official office, project, or program title..."
-                    className={`min-h-[160px] text-base resize-y p-4 ${errors.projectProgramActivity ? "border-red-500 ring-red-500" : ""}`}
-                  />
-                  {errors.projectProgramActivity ? (
-                    <p className="text-xs text-red-500 font-medium">{errors.projectProgramActivity}</p>
-                  ) : (
-                    <p className="text-xs text-slate-500">Enter the official office, project, or program title.</p>
-                  )}
-                </div>
-              </div>
-            </section>
-
+            {/* Add Another Entry Button (only shown when repeater is enabled) */}
+            {showRepeater && (
+              <Button 
+                variant="outline" 
+                className="w-full border-dashed border-2 h-12 text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                onClick={addEntry}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Another AIP Entry
+              </Button>
+            )}
           </div>
 
           {/* Sticky Footer */}
           <div className="sticky bottom-0 z-20 bg-white border-t border-slate-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
             <p className="text-sm text-slate-500 flex items-center gap-1.5">
               <Info className="h-4 w-4 text-slate-400" />
-              Review classification details before saving this AIP master record.
+              {entries.length} AIP master record(s) will be created.
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <Button 
@@ -420,7 +506,7 @@ export function MainAnnualInvestmentPlanModal({
                 ) : (
                   <>
                     <Save className="h-4 w-4 mr-2" />
-                    Save Main AIP
+                    Save {entries.length > 1 ? `${entries.length} AIPs` : 'Main AIP'}
                   </>
                 )}
               </Button>

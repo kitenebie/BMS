@@ -73,7 +73,13 @@ const defaultValues: SubProgramFormValues = {
   ccTypologyCode: "",
   ccAmount: "",
   projectProgramActivity: "",
-  expectedOutput: ""
+  expectedOutput: "",
+  // Design section fields
+  designType: "",
+  designStatus: "",
+  architecturalDesign: "",
+  technicalSpecs: "",
+  location: "",
 }
 
 export function AddSubProgramModal({ open, onOpenChange }: AddSubProgramModalProps) {
@@ -123,17 +129,14 @@ export function AddSubProgramModal({ open, onOpenChange }: AddSubProgramModalPro
     <>
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent 
-          className="max-w-[1200px] xl:max-w-[1400px] p-0 gap-0 bg-white shadow-2xl sm:rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
+          className="max-w-[1200px] xl:max-w-[1400px] p-0 gap-0 bg-slate-50/50 shadow-2xl sm:rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
           hideCloseButton
         >
           {/* STICKY HEADER */}
           <DialogHeader className="px-6 py-5 border-b border-slate-200 bg-white sticky top-0 z-20 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
-                <DialogTitle className="text-2xl font-bold text-slate-900">Add Sub-Program</DialogTitle>
-                <DialogDescription className="text-slate-500 mt-1">
-                  Create a program entry under the selected AIP program classification.
-                </DialogDescription>
+                <DialogTitle className="text-2xl font-bold text-slate-900">Add Program for:</DialogTitle>
               </div>
               <Button 
                 variant="ghost" 

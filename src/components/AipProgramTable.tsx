@@ -49,7 +49,7 @@ import {
   TooltipTrigger,
 } from "@/src/components/ui/tooltip"
 import { formatCurrency } from "@/src/lib/utils"
-import { AddSubProgramModal } from "@/src/components/AddSubProgramModal"
+import { AddAIPSubProgramModal } from "@/src/components/AddAIPSubProgramModal"
 import { ProgramRowActionMenu } from "@/src/components/ProgramRowActionMenu"
 
 // Mock Data Type
@@ -107,13 +107,15 @@ export function AipProgramTable() {
   const [globalFilter, setGlobalFilter] = useState("")
   const [officeFilter, setOfficeFilter] = useState("all")
   const [isProgramModalOpen, setIsProgramModalOpen] = useState(false)
+  const [isSubProgramModalOpen, setIsSubProgramModalOpen] = useState(false)
   
   // Mock selected AIP for the Add Program modal
   const selectedAip = {
     aipCode: "1000-000-2-01-01-000-000",
     office: "OFFICE OF THE CITY MAYOR (OCM)",
     departmentCode: "2-01-001",
-    sector: "1000"
+    sector: "1000",
+    program: "EXECUTIVE MANAGEMENT"
   }
   
   const columns = useMemo<ColumnDef<Program>[]>(
@@ -197,7 +199,7 @@ export function AipProgramTable() {
         cell: ({ row }) => (
           <ProgramRowActionMenu 
             programId={row.original.id} 
-            onAddSubProgram={() => setIsProgramModalOpen(true)}
+            onAddSubProgram={() => setIsSubProgramModalOpen(true)}
           />
         ),
       },
@@ -248,13 +250,23 @@ export function AipProgramTable() {
             <Download className="h-4 w-4" />
             Export
           </Button>
-          <Button className="gap-2 bg-indigo-600 hover:bg-indigo-700 text-white" onClick={() => setIsProgramModalOpen(true)}>
+          <Button className="gap-2 bg-green-600 hover:bg-green-700 text-white" onClick={() => setIsProgramModalOpen(true)}>
             <Plus className="h-4 w-4" />
             New Program
           </Button>
-          <AddSubProgramModal 
+          <AddAIPSubProgramModal 
             open={isProgramModalOpen} 
             onOpenChange={setIsProgramModalOpen}
+          />
+          <AddAIPSubProgramModal 
+            open={isSubProgramModalOpen} 
+            onOpenChange={setIsSubProgramModalOpen}
+            showRepeater={false}
+            modalType="subprogram"
+            selectedRow={{
+              aipCode: selectedAip?.aipCode || "",
+              programName: selectedAip?.program || ""
+            }}
           />
         </div>
       </div>

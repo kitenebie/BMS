@@ -15,7 +15,10 @@ import {
   BadgeCent, 
   ClipboardList, 
   Target,
-  FilePlus
+  FilePlus,
+  Palette,
+  Ruler,
+  MapPin
 } from "lucide-react"
 
 export const subProgramSchema = z.object({
@@ -35,6 +38,12 @@ export const subProgramSchema = z.object({
   ccAmount: z.string().optional(),
   projectProgramActivity: z.string().min(1, "Project/Program/Activity is required"),
   expectedOutput: z.string().min(1, "Expected Output is required"),
+  // Design section fields
+  designType: z.string().optional(),
+  designStatus: z.string().optional(),
+  architecturalDesign: z.string().optional(),
+  technicalSpecs: z.string().optional(),
+  location: z.string().optional(),
 }).refine((data) => {
   if (data.dateStarted && data.dateCompleted) {
     return new Date(data.dateCompleted) >= new Date(data.dateStarted)
@@ -68,11 +77,11 @@ export function SubProgramFormSections({
   const ccAmount = watch("ccAmount")
 
   return (
-    <div className="space-y-10 py-4">
+    <div className="space-y-2 py-4">
       
       {/* SECTION 1: PROGRAM CLASSIFICATION */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+      <section className="space-y-2 bg-white p-6 rounded-md shadow-sm">
+        <div className="flex items-centergap-2 border-b border-slate-200 pb-2">
           <div className="bg-indigo-100 p-1.5 rounded-md">
             <FilePlus className="h-5 w-5 text-indigo-600" />
           </div>
@@ -131,7 +140,7 @@ export function SubProgramFormSections({
       </section>
 
       {/* SECTION 2: TIMELINE & SERVICE DETAILS */}
-      <section className="space-y-6">
+      <section className="space-y-2 bg-white p-6 rounded-md shadow-sm">
         <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
           <div className="bg-blue-100 p-1.5 rounded-md">
             <CalendarDays className="h-5 w-5 text-blue-600" />
@@ -214,7 +223,7 @@ export function SubProgramFormSections({
       </section>
 
       {/* SECTION 3: FINANCIAL INFORMATION */}
-      <section className="space-y-6">
+      <section className="space-y-2 bg-white p-6 rounded-md shadow-sm">
         <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
           <div className="bg-emerald-100 p-1.5 rounded-md">
             <Wallet className="h-5 w-5 text-emerald-600" />
@@ -294,7 +303,7 @@ export function SubProgramFormSections({
       </section>
 
       {/* SECTION 4: PROGRAM DESCRIPTION */}
-      <section className="space-y-6">
+      <section className="space-y-2 bg-white p-6 rounded-md shadow-sm">
         <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
           <div className="bg-amber-100 p-1.5 rounded-md">
             <ClipboardList className="h-5 w-5 text-amber-600" />
@@ -323,6 +332,87 @@ export function SubProgramFormSections({
               placeholder="Describe measurable results expected from this program."
             />
             {errors.expectedOutput && <p className="text-xs text-red-500 mt-1">{errors.expectedOutput.message}</p>}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: DESIGN & PLANNING */}
+      <section className="space-y-2 bg-white p-6 rounded-md shadow-sm">
+        <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+          <div className="bg-purple-100 p-1.5 rounded-md">
+            <Palette className="h-5 w-5 text-purple-600" />
+          </div>
+          <h3 className="text-lg font-semibold text-slate-900">5. Design & Planning</h3>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="designType" className="text-slate-700">Design Type</Label>
+            <Select onValueChange={(val) => setValue("designType", val)} defaultValue={watch("designType")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select design type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="new-construction">New Construction</SelectItem>
+                <SelectItem value="renovation">Renovation/Repair</SelectItem>
+                <SelectItem value="expansion">Expansion</SelectItem>
+                <SelectItem value="reconstruction">Reconstruction</SelectItem>
+                <SelectItem value="others">Others</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="designStatus" className="text-slate-700">Design Status</Label>
+            <Select onValueChange={(val) => setValue("designStatus", val)} defaultValue={watch("designStatus")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select design status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="planning">Planning</SelectItem>
+                <SelectItem value="design-phase">Design Phase</SelectItem>
+                <SelectItem value=" bidding">Bidding</SelectItem>
+                <SelectItem value="construction">Under Construction</SelectItem>
+                <SelectItem value="completed">Completed</SelectItem>
+                <SelectItem value="not-applicable">Not Applicable</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="location" className="text-slate-700">Location</Label>
+            <div className="relative">
+              <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+              <Input 
+                id="location" 
+                {...register("location")} 
+                className="pl-9"
+                placeholder="Enter project location"
+              />
+            </div>
+          </div>
+          
+          <div className="lg:col-span-2 space-y-2">
+            <Label htmlFor="architecturalDesign" className="text-slate-700">Architectural Design</Label>
+            <Textarea 
+              id="architecturalDesign" 
+              {...register("architecturalDesign")} 
+              className="min-h-[80px] resize-y"
+              placeholder="Describe architectural design requirements and specifications..."
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="technicalSpecs" className="text-slate-700">Technical Specifications</Label>
+            <div className="relative">
+              <Ruler className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+              <Textarea 
+                id="technicalSpecs" 
+                {...register("technicalSpecs")} 
+                className="pl-9 min-h-[80px] resize-y"
+                placeholder="Enter technical specifications..."
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -4,7 +4,6 @@ export const dashboardStats = {
   totalObligations: 1712931037,
   remainingBudget: 4541314301,
   utilizationRate: 24.48,
-  departmentCount: 26,
 };
 
 export const budgetTrend = [

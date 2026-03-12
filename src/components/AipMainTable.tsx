@@ -26,6 +26,8 @@ import { TablePagination } from "./TablePagination"
 import { DeleteAipDialog } from "./DeleteAipDialog"
 import { CloneAipMainModal } from "./CloneAipMainModal"
 import { RollbackAipClonesModal } from "./RollbackAipClonesModal"
+import { AddAIPSubProgramModal } from "./AddAIPSubProgramModal"
+import { MainAnnualInvestmentPlanModal } from "./MainAnnualInvestmentPlanModal"
 
 // Mock Data
 const aipMainRows = [
@@ -33,7 +35,9 @@ const aipMainRows = [
     id: "AIP-001",
     aipCode: "1000-000-2-01-01-000-000",
     ppa: "OFFICE OF THE CITY MAYOR (OCM)",
-    sector: "1000",
+    department: "2-01-001 | Office of the City Mayor",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Executive Governance",
     totalAmount: 3338490490.29,
     totalLep: 875614951.9,
   },
@@ -41,7 +45,9 @@ const aipMainRows = [
     id: "AIP-002",
     aipCode: "1000-000-2-01-02-000-000",
     ppa: "OFFICE OF THE CITY VICE-MAYOR (OCVM)",
-    sector: "1000",
+    department: "2-01-002 | Office of the City Vice-Mayor",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Executive Governance",
     totalAmount: 238901550.7,
     totalLep: 7091550.7,
   },
@@ -49,7 +55,9 @@ const aipMainRows = [
     id: "AIP-003",
     aipCode: "1000-000-2-01-03-000-000",
     ppa: "OFFICE OF THE SANGGUNIANG PANLUNGSOD (SP) MEMBERS",
-    sector: "1000",
+    department: "2-01-003 | Office of the Sangguniang Panlungsod",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Legislative Support",
     totalAmount: 1028770000,
     totalLep: 40226557.97,
   },
@@ -57,7 +65,9 @@ const aipMainRows = [
     id: "AIP-004",
     aipCode: "1000-000-2-01-05-000-000",
     ppa: "OFFICE OF THE CITY TREASURER",
-    sector: "1000",
+    department: "2-01-005 | Office of the City Treasurer",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Finance Administration",
     totalAmount: 43100000,
     totalLep: 34075506.7,
   },
@@ -65,7 +75,9 @@ const aipMainRows = [
     id: "AIP-005",
     aipCode: "1000-000-2-01-06-000-000",
     ppa: "OFFICE OF THE CITY ASSESSOR",
-    sector: "1000",
+    department: "2-01-006 | Office of the City Assessor",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Finance Administration",
     totalAmount: 25367000,
     totalLep: 20543099.43,
   },
@@ -73,7 +85,9 @@ const aipMainRows = [
     id: "AIP-006",
     aipCode: "1000-000-2-01-07-000-000",
     ppa: "OFFICE OF THE CITY ACCOUNTANT",
-    sector: "1000",
+    department: "2-01-007 | Office of the City Accountant",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Finance Administration",
     totalAmount: 10424000,
     totalLep: 8265748.48,
   },
@@ -81,7 +95,9 @@ const aipMainRows = [
     id: "AIP-007",
     aipCode: "1000-000-2-01-08-000-000",
     ppa: "OFFICE OF THE CITY BUDGET OFFICER",
-    sector: "1000",
+    department: "2-01-008 | Office of the City Budget Officer",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Planning and Coordination",
     totalAmount: 7900000,
     totalLep: 17547909.21,
   },
@@ -89,7 +105,9 @@ const aipMainRows = [
     id: "AIP-008",
     aipCode: "1000-000-2-01-09-000-000",
     ppa: "OFFICE OF THE CITY PLANNING AND DEVELOPMENT COORDINATOR",
-    sector: "1000",
+    department: "2-01-009 | Office of the City Planning and Development Coordinator",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Planning and Coordination",
     totalAmount: 28935000,
     totalLep: 20659875.24,
   },
@@ -97,7 +115,9 @@ const aipMainRows = [
     id: "AIP-009",
     aipCode: "1000-000-2-01-12-000-000",
     ppa: "OFFICE OF THE CITY CIVIL REGISTRAR (CCR)",
-    sector: "1000",
+    department: "2-01-012 | Office of the City Civil Registrar",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Executive Governance",
     totalAmount: 15375000,
     totalLep: 23191278.34,
   },
@@ -105,7 +125,9 @@ const aipMainRows = [
     id: "AIP-010",
     aipCode: "1000-000-2-01-17-000-000",
     ppa: "OFFICE OF THE CITY GENERAL SERVICES OFFICER (OCGSO)",
-    sector: "1000",
+    department: "2-01-017 | Office of the City General Services Officer",
+    sector: "GENERAL ADMINISTRATIVE AND SUPPORT SERVICES",
+    subSector: "Executive Governance",
     totalAmount: 8750000,
     totalLep: 19147213.86,
   },
@@ -113,7 +135,9 @@ const aipMainRows = [
     id: "AIP-011",
     aipCode: "1000-000-2-01-18-000-000",
     ppa: "OFFICE OF THE CITY ENGINEERING",
-    sector: "1000",
+    department: "2-01-018 | Office of the City Engineering",
+    sector: "ECONOMIC SERVICES",
+    subSector: "Infrastructure Development",
     totalAmount: 54100000,
     totalLep: 32100000,
   },
@@ -121,7 +145,9 @@ const aipMainRows = [
     id: "AIP-012",
     aipCode: "1000-000-2-01-19-000-000",
     ppa: "OFFICE OF THE CITY HEALTH",
-    sector: "1000",
+    department: "2-01-019 | Office of the City Health",
+    sector: "SOCIAL SERVICES",
+    subSector: "Health Services",
     totalAmount: 67500000,
     totalLep: 45800000,
   },
@@ -145,6 +171,26 @@ export function AipMainTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [aipToDelete, setAipToDelete] = useState<string | null>(null)
 
+  // Add Program modal state
+  const [isProgramModalOpen, setIsProgramModalOpen] = useState(false)
+  const [selectedAipForProgram, setSelectedAipForProgram] = useState<{
+    aipId: string
+    aipCode: string
+    office: string
+    departmentCode: string
+    sector: string
+  } | null>(null)
+
+  // View/Edit Main AIP modal state
+  const [isMainAipModalOpen, setIsMainAipModalOpen] = useState(false)
+  const [selectedAipForMainAip, setSelectedAipForMainAip] = useState<{
+    department: string
+    sector: string
+    subSector: string
+    aipCode: string
+    projectProgramActivity: string
+  } | null>(null)
+
   // Filter data based on search and filters
   const filteredData = useMemo(() => {
     let result = aipMainRows
@@ -155,7 +201,8 @@ export function AipMainTable() {
         (row) =>
           row.aipCode.toLowerCase().includes(lowerQuery) ||
           row.ppa.toLowerCase().includes(lowerQuery) ||
-          row.sector.toLowerCase().includes(lowerQuery)
+          row.sector.toLowerCase().includes(lowerQuery) ||
+          (row.department && row.department.toLowerCase().includes(lowerQuery))
       )
     }
 
@@ -207,6 +254,48 @@ export function AipMainTable() {
   const handleDeleteRequest = (id: string) => {
     setAipToDelete(id)
     setIsDeleteDialogOpen(true)
+  }
+
+  const handleAddProgram = (aipId: string, aipCode: string, office: string, departmentCode: string, sector: string) => {
+    // Extract department code from the full department string if needed
+    let deptCode = departmentCode
+    if (!deptCode && office) {
+      // Try to find the department code from the mock data
+      const aip = aipMainRows.find(row => row.id === aipId)
+      if (aip?.department) {
+        deptCode = aip.department.split(" | ")[0]
+      }
+    }
+    setSelectedAipForProgram({ aipId, aipCode, office, departmentCode: deptCode, sector })
+    setIsProgramModalOpen(true)
+  }
+
+  const handleView = (aipId: string) => {
+    const aip = aipMainRows.find(row => row.id === aipId)
+    if (aip) {
+      setSelectedAipForMainAip({
+        department: aip.department || "",
+        sector: aip.sector || "",
+        subSector: aip.subSector || "",
+        aipCode: aip.aipCode,
+        projectProgramActivity: aip.ppa
+      })
+      setIsMainAipModalOpen(true)
+    }
+  }
+
+  const handleEdit = (aipId: string) => {
+    const aip = aipMainRows.find(row => row.id === aipId)
+    if (aip) {
+      setSelectedAipForMainAip({
+        department: aip.department || "",
+        sector: aip.sector || "",
+        subSector: aip.subSector || "",
+        aipCode: aip.aipCode,
+        projectProgramActivity: aip.ppa
+      })
+      setIsMainAipModalOpen(true)
+    }
   }
 
   // Get unique sectors for the dropdown
@@ -343,7 +432,18 @@ export function AipMainTable() {
                     {formatCurrency(item.totalLep)}
                   </TableCell>
                   <TableCell className="py-3 pr-4">
-                    <RowActionMenu aipId={item.id} onDeleteRequest={handleDeleteRequest} />
+                    <RowActionMenu 
+                      aipId={item.id} 
+                      aipCode={item.aipCode}
+                      office={item.ppa}
+                      departmentCode={item.department ? item.department.split(" | ")[0] : ""}
+                      sector={item.sector}
+                      ppa={item.ppa}
+                      onDeleteRequest={handleDeleteRequest}
+                      onAddProgram={handleAddProgram}
+                      onView={handleView}
+                      onEdit={handleEdit}
+                    />
                   </TableCell>
                 </TableRow>
               ))
@@ -388,6 +488,27 @@ export function AipMainTable() {
         onOpenChange={setIsDeleteDialogOpen}
         aipId={aipToDelete}
       />
+
+      {isProgramModalOpen && (
+        <AddAIPSubProgramModal
+          open={isProgramModalOpen}
+          onOpenChange={setIsProgramModalOpen}
+          showRepeater={false}
+          modalType="program"
+          selectedRow={{
+            aipCode: selectedAipForProgram?.aipCode || "",
+            programName: selectedAipForProgram?.office || ""
+          }}
+        />
+      )}
+
+      {selectedAipForMainAip && (
+        <MainAnnualInvestmentPlanModal
+          open={isMainAipModalOpen}
+          onOpenChange={setIsMainAipModalOpen}
+          showRepeater={false}
+        />
+      )}
     </div>
   )
 }

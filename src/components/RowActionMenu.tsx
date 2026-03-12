@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { 
   MoreHorizontal, 
   Plus, 
@@ -20,24 +19,29 @@ import {
 
 interface RowActionMenuProps {
   aipId: string
+  aipCode: string
+  office: string
+  departmentCode: string
+  sector: string
+  ppa: string
   onDeleteRequest: (id: string) => void
+  onAddProgram: (aipId: string, aipCode: string, office: string, departmentCode: string, sector: string) => void
+  onView: (aipId: string) => void
+  onEdit: (aipId: string) => void
 }
 
-export function RowActionMenu({ aipId, onDeleteRequest }: RowActionMenuProps) {
+export function RowActionMenu({ aipId, aipCode, office, departmentCode, sector, ppa, onDeleteRequest, onAddProgram, onView, onEdit }: RowActionMenuProps) {
   const handleQuickAction = () => {
     toast.success("Opening AIP Programs")
+    onAddProgram(aipId, aipCode, office, departmentCode, sector)
   }
 
   const handleView = () => {
-    toast.info("Viewing AIP details")
+    onView(aipId)
   }
 
   const handleEdit = () => {
-    toast.info("Opening edit modal")
-  }
-
-  const handleClone = () => {
-    toast.info("Opening clone flow")
+    onEdit(aipId)
   }
 
   return (
@@ -73,10 +77,6 @@ export function RowActionMenu({ aipId, onDeleteRequest }: RowActionMenuProps) {
           <DropdownMenuItem onClick={handleEdit} className="gap-2 cursor-pointer">
             <Pencil className="h-4 w-4 text-slate-500" />
             Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleClone} className="gap-2 cursor-pointer">
-            <Copy className="h-4 w-4 text-slate-500" />
-            Clone
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem 

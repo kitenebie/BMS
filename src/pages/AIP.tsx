@@ -38,11 +38,13 @@ import {
 } from "lucide-react"
 import { AipMainTable } from "@/src/components/AipMainTable"
 import { MainAnnualInvestmentPlanModal } from "@/src/components/MainAnnualInvestmentPlanModal"
+import { AddMainAIPModal } from "@/src/components/AddMainAIPModal"
 import { AipProgramTable } from "@/src/components/AipProgramTable"
 
 export function AIP() {
   const [activeTab, setActiveTab] = useState<"main" | "program">("main")
   const [isMainModalOpen, setIsMainModalOpen] = useState(false)
+  const [isAddMainAIPModalOpen, setIsAddMainAIPModalOpen] = useState(false)
   const [isProgramModalOpen, setIsProgramModalOpen] = useState(false)
 
   // Mock selected AIP for the Add Program modal
@@ -62,10 +64,6 @@ export function AIP() {
             <p className="text-slate-500 mt-1">Manage and track AIP allocations and programs</p>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" className="gap-2">
-              <Download className="h-4 w-4" />
-              Export
-            </Button>
             <Button className="gap-2" onClick={() => setIsMainModalOpen(true)}>
               <Plus className="h-4 w-4" />
               Add Main AIP
@@ -73,6 +71,10 @@ export function AIP() {
             <MainAnnualInvestmentPlanModal 
               open={isMainModalOpen} 
               onOpenChange={setIsMainModalOpen}
+            />
+            <AddMainAIPModal
+              open={isAddMainAIPModalOpen}
+              onOpenChange={setIsAddMainAIPModalOpen}
             />
           </div>
         </div>

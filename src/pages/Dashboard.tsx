@@ -61,7 +61,7 @@ export function Dashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="border-l-4 border-l-green-600">
           <CardContent className="p-6">
             <div className="flex items-center justify-between space-y-0 pb-2">
@@ -70,7 +70,19 @@ export function Dashboard() {
             </div>
             <div className="text-2xl font-bold text-slate-900">{formatCurrency(dashboardStats.totalAip)}</div>
             <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-medium">
-              <TrendingUp className="h-3 w-3" /> +12.5% from last year
+              <TrendingUp className="h-3 w-3" /> Annual Investment Plan allocation
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="border-l-4 border-l-amber-500">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between space-y-0 pb-2">
+              <p className="text-sm font-medium text-slate-500">Total LEP</p>
+              <TrendingUp className="h-4 w-4 text-slate-400" />
+            </div>
+            <div className="text-2xl font-bold text-slate-900">{formatCurrency(dashboardStats.remainingBudget)}</div>
+            <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-medium">
+              <TrendingUp className="h-3 w-3" /> 24.48% utilization rate
             </p>
           </CardContent>
         </Card>
@@ -86,39 +98,15 @@ export function Dashboard() {
             </p>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-amber-500">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between space-y-0 pb-2">
-              <p className="text-sm font-medium text-slate-500">Remaining Budget</p>
-              <TrendingUp className="h-4 w-4 text-slate-400" />
-            </div>
-            <div className="text-2xl font-bold text-slate-900">{formatCurrency(dashboardStats.remainingBudget)}</div>
-            <p className="text-xs text-slate-500 mt-1">
-              Available for allocation
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-purple-600">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between space-y-0 pb-2">
-              <p className="text-sm font-medium text-slate-500">Departments</p>
-              <Building2 className="h-4 w-4 text-slate-400" />
-            </div>
-            <div className="text-2xl font-bold text-slate-900">{dashboardStats.departmentCount}</div>
-            <p className="text-xs text-slate-500 mt-1">
-              Active departments covered
-            </p>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Analytics Row */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
-            <CardTitle>Budget vs Obligations</CardTitle>
+            <CardTitle>BUDGET</CardTitle>
             <CardDescription>
-              Annual comparison of allocated budget and actual obligations
+              Annual comparison of allocated budget
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
@@ -146,8 +134,8 @@ export function Dashboard() {
                     contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   />
                   <Legend iconType="circle" />
-                  <Bar dataKey="budget" name="Total Budget" fill="#16A34A" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="obligation" name="Total Obligations" fill="#2563EB" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="budget" name="Total Budget" fill="#16A34A" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
