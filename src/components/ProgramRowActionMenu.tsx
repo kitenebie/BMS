@@ -22,9 +22,10 @@ interface ProgramRowActionMenuProps {
   programId: string
   onDeleteRequest?: (id: string) => void
   onAddSubProgram?: (id: string) => void
+  onEdit?: (id: string) => void
 }
 
-export function ProgramRowActionMenu({ programId, onDeleteRequest, onAddSubProgram }: ProgramRowActionMenuProps) {
+export function ProgramRowActionMenu({ programId, onDeleteRequest, onAddSubProgram, onEdit }: ProgramRowActionMenuProps) {
   const handleQuickAction = () => {
     if (onAddSubProgram) {
       onAddSubProgram(programId)
@@ -38,7 +39,11 @@ export function ProgramRowActionMenu({ programId, onDeleteRequest, onAddSubProgr
   }
 
   const handleEdit = () => {
-    toast.info("Opening edit modal")
+    if (onEdit) {
+      onEdit(programId)
+    } else {
+      toast.info("Opening edit modal")
+    }
   }
 
   const handleClone = () => {

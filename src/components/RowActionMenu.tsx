@@ -49,7 +49,7 @@ export function RowActionMenu({ aipId, aipCode, office, departmentCode, sector, 
       <Button 
         variant="ghost" 
         size="sm" 
-        className="h-8 px-2 text-green-700 bg-green-50 hover:bg-green-100 hover:text-green-800"
+        className="h-8 px-2 border border-green-700 text-green-700 bg-green-50 hover:bg-green-100 hover:text-green-800"
         onClick={handleQuickAction}
         aria-label="Programs"
         title="Programs"
@@ -70,10 +70,6 @@ export function RowActionMenu({ aipId, aipCode, office, departmentCode, sector, 
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuItem onClick={handleView} className="gap-2 cursor-pointer">
-            <Eye className="h-4 w-4 text-slate-500" />
-            View Details
-          </DropdownMenuItem>
           <DropdownMenuItem onClick={handleEdit} className="gap-2 cursor-pointer">
             <Pencil className="h-4 w-4 text-slate-500" />
             Edit

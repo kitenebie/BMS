@@ -101,13 +101,19 @@ const generateMockPrograms = (): Program[] => {
 
 const mockPrograms = generateMockPrograms()
 
-export function AipProgramTable() {
+interface AipProgramTableProps {
+  isProgramModalOpen?: boolean
+  onProgramModalChange?: (open: boolean) => void
+}
+
+export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: AipProgramTableProps) {
   const [data] = useState<Program[]>(mockPrograms)
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState("")
   const [officeFilter, setOfficeFilter] = useState("all")
-  const [isProgramModalOpen, setIsProgramModalOpen] = useState(false)
   const [isSubProgramModalOpen, setIsSubProgramModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [selectedAipForEdit, setSelectedAipForEdit] = useState<Program | null>(null)
   
   // Mock selected AIP for the Add Program modal
   const selectedAip = {
@@ -200,6 +206,14 @@ export function AipProgramTable() {
           <ProgramRowActionMenu 
             programId={row.original.id} 
             onAddSubProgram={() => setIsSubProgramModalOpen(true)}
+            onEdit={(id) => {
+              // Find the program data and open edit modal
+              const program = data.find(p => p.id === id)
+              if (program) {
+                setSelectedAipForEdit(program)
+                setIsEditModalOpen(true)
+              }
+            }}
           />
         ),
       },
@@ -239,39 +253,7 @@ export function AipProgramTable() {
   return (
     <div className="flex flex-col w-full bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       
-      {/* 1. PAGE HEADER */}
-      <div className="px-6 py-5 border-b border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-slate-900">AIP Program</h2>
-          <p className="text-sm text-slate-500 mt-1">Manage all Annual Investment Plan programs.</p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" className="gap-2 text-slate-600">
-            <Download className="h-4 w-4" />
-            Export
-          </Button>
-          <Button className="gap-2 bg-green-600 hover:bg-green-700 text-white" onClick={() => setIsProgramModalOpen(true)}>
-            <Plus className="h-4 w-4" />
-            New Program
-          </Button>
-          <AddAIPSubProgramModal 
-            open={isProgramModalOpen} 
-            onOpenChange={setIsProgramModalOpen}
-          />
-          <AddAIPSubProgramModal 
-            open={isSubProgramModalOpen} 
-            onOpenChange={setIsSubProgramModalOpen}
-            showRepeater={false}
-            modalType="subprogram"
-            selectedRow={{
-              aipCode: selectedAip?.aipCode || "",
-              programName: selectedAip?.program || ""
-            }}
-          />
-        </div>
-      </div>
-
-      {/* 2. GLOBAL TABLE TOOLBAR */}
+      {/* 1. GLOBAL TABLE TOOLBAR */}
       <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="text-sm text-slate-500">Show</span>
@@ -481,6 +463,36 @@ export function AipProgramTable() {
           </Button>
         </div>
       </div>
+
+      {/* Modals */}
+      {isProgramModalOpen !== undefined && (
+        <AddAIPSubProgramModal
+          open={isProgramModalOpen}
+          onOpenChange={onProgramModalChange || (() => {})}
+        />
+      )}
+      <AddAIPSubProgramModal
+        open={isSubProgramModalOpen}
+        onOpenChange={setIsSubProgramModalOpen}
+        showRepeater={false}
+        modalType="subprogram"
+        selectedRow={{
+          aipCode: selectedAip?.aipCode || "",
+          programName: selectedAip?.program || ""
+        }}
+      />
+      {selectedAipForEdit && (
+        <AddAIPSubProgramModal
+          open={isEditModalOpen}
+          onOpenChange={setIsEditModalOpen}
+          showRepeater={false}
+          modalType="program"
+          selectedRow={{
+            aipCode: selectedAipForEdit.aipCode,
+            programName: selectedAipForEdit.program
+          }}
+        />
+      )}
     </div>
   )
 }
