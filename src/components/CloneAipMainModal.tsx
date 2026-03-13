@@ -55,11 +55,11 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-[760px] p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-[760px] p-0 overflow-hidden gap-0 dark:bg-slate-900">
           <div className="p-6 sm:p-8">
             <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl font-bold text-slate-900">Clone AIP Main</DialogTitle>
-              <DialogDescription className="text-base text-slate-500">
+              <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Clone AIP Main</DialogTitle>
+              <DialogDescription className="text-base text-slate-500 dark:text-slate-400">
                 Clone your AIP records by year
               </DialogDescription>
             </DialogHeader>
@@ -73,7 +73,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
 
             <div className="grid gap-6 md:grid-cols-2">
               <div className="space-y-3">
-                <Label className="text-sm font-semibold text-slate-700">Select existing year to clone (Source)</Label>
+                <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Select existing year to clone (Source)</Label>
                 <Select value={sourceYear} onValueChange={setSourceYear}>
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Select year" />
@@ -87,12 +87,12 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
                   </SelectContent>
                 </Select>
                 {!sourceYear && (
-                  <p className="text-sm text-red-500 font-medium">Source year is required</p>
+                  <p className="text-sm text-red-500 dark:text-red-400 font-medium">Source year is required</p>
                 )}
               </div>
 
               <div className="space-y-3">
-                <Label className="text-sm font-semibold text-slate-700">Select year as cloned (Target)</Label>
+                <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Select year as cloned (Target)</Label>
                 <Select value={targetYear} onValueChange={setTargetYear}>
                   <SelectTrigger className="h-11">
                     <SelectValue placeholder="Select year" />
@@ -106,17 +106,17 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
                   </SelectContent>
                 </Select>
                 {!targetYear && (
-                  <p className="text-sm text-red-500 font-medium">Target year is required</p>
+                  <p className="text-sm text-red-500 dark:text-red-400 font-medium">Target year is required</p>
                 )}
                 {isSameYear && sourceYear && targetYear && (
-                  <p className="text-sm text-red-500 font-medium">Source and target year cannot be the same</p>
+                  <p className="text-sm text-red-500 dark:text-red-400 font-medium">Source and target year cannot be the same</p>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="bg-slate-50 px-6 py-4 sm:px-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-slate-500 font-medium">
+          <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 sm:px-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
               Clone one year at a time for safety.
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -130,7 +130,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
               <Button 
                 onClick={handleClone} 
                 disabled={!isFormValid}
-                className="w-full sm:w-auto h-11 px-6 bg-green-600 hover:bg-green-700 text-white gap-2"
+                className="w-full sm:w-auto h-11 px-6 bg-green-600 hover:bg-green-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white gap-2"
               >
                 <Copy className="h-4 w-4" />
                 Clone Records
@@ -142,26 +142,26 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
 
       {/* Confirmation Dialog */}
       <Dialog open={isConfirming} onOpenChange={setIsConfirming}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md dark:bg-slate-900">
           <DialogHeader>
-            <DialogTitle>Confirm Clone</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="dark:text-slate-100">Confirm Clone</DialogTitle>
+            <DialogDescription className="dark:text-slate-400">
               Are you sure you want to clone AIP Main from {sourceYear} to {targetYear}?
             </DialogDescription>
           </DialogHeader>
           
-          <div className="bg-slate-50 border border-slate-100 rounded-lg p-4 my-4 space-y-2">
+          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-lg p-4 my-4 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500">Source Year:</span>
-              <span className="font-semibold text-slate-900">{sourceYear}</span>
+              <span className="text-slate-500 dark:text-slate-400">Source Year:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">{sourceYear}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500">Target Year:</span>
-              <span className="font-semibold text-slate-900">{targetYear}</span>
+              <span className="text-slate-500 dark:text-slate-400">Target Year:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">{targetYear}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-500">Action:</span>
-              <span className="font-semibold text-slate-900">Clone AIP Main Records</span>
+              <span className="text-slate-500 dark:text-slate-400">Action:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">Clone AIP Main Records</span>
             </div>
           </div>
 
@@ -172,7 +172,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
             <Button 
               onClick={confirmClone} 
               disabled={isCloning}
-              className="bg-green-600 hover:bg-green-700 text-white gap-2 min-w-[120px]"
+              className="bg-green-600 hover:bg-green-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white gap-2 min-w-[120px]"
             >
               {isCloning ? (
                 <>

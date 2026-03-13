@@ -326,19 +326,19 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
         if (!val) handleCloseClick()
       }}>
         <DialogContent 
-          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50"
+          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50 dark:bg-slate-950/50"
           onInteractOutside={handleInteractOutside}
           hideCloseButton
         >
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-white border-b border-slate-200 px-6 py-4 shadow-sm">
+          <div className="sticky top-0 z-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-1">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <FilePlus className="h-5 w-5 text-green-700" />
+                  <div className="bg-green-100 dark:bg-emerald-500/20 p-2 rounded-lg">
+                    <FilePlus className="h-5 w-5 text-green-700 dark:text-emerald-400" />
                   </div>
-                  <DialogTitle className="text-2xl font-bold text-slate-900">
+                  <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {modalType === "subprogram" 
                       ? selectedRow 
                         ? `Add Sub-Program for: ${selectedRow.aipCode} | ${selectedRow.programName}`
@@ -348,19 +348,19 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                         : "Add Program"
                     }
                   </DialogTitle>
-                  <Badge variant="secondary" className="bg-green-50 text-green-700 hover:bg-green-100 border-green-200 ml-2">
+                  <Badge variant="secondary" className="bg-green-50 dark:bg-emerald-500/10 text-green-700 dark:text-emerald-400 hover:bg-green-100 dark:hover:bg-emerald-500/20 border-green-200 dark:border-emerald-500/20 ml-2">
                     <CheckCircle2 className="h-3 w-3 mr-1" />
                     AIP Main Linked
                   </Badge>
                 </div>
-                <DialogDescription className="text-slate-500 text-base">
+                <DialogDescription className="text-slate-500 dark:text-slate-400 text-base">
                   Create new program entries under the selected AIP Main record.
                 </DialogDescription>
               </div>
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-8 w-8 rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                className="h-8 w-8 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
                 onClick={handleCloseClick}
               >
                 <X className="h-5 w-5" />
@@ -371,11 +371,11 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
             {/* Select AIP for */}
             {showRepeater && (
             <div className="mt-4 flex items-center gap-4">
-              <Label htmlFor="selectAip" className="text-slate-700 font-medium whitespace-nowrap">
+              <Label htmlFor="selectAip" className="text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
                 Select AIP for:
               </Label>
               <Select value={selectedAipId} onValueChange={handleAipSelection}>
-                <SelectTrigger id="selectAip" className="w-[700px] bg-white">
+                <SelectTrigger id="selectAip" className="w-[700px] bg-white dark:bg-slate-950">
                   <SelectValue placeholder="Select an AIP Main record..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -393,17 +393,17 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
           {/* Scrollable Form Body - Program Entries Repeater */}
           <div className="overflow-y-auto max-h-[calc(90vh-220px)] p-6 space-y-2">
             {programEntries.map((entry, index) => (
-              <div key={entry.id} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <div key={entry.id} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
                 {/* Entry Header */}
-                <div className="bg-slate-50/80 border-b border-slate-100 px-5 py-3 flex items-center justify-between">
+                <div className="bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 px-5 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-slate-800">Program Entry #{index + 1}</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">Program Entry #{index + 1}</span>
                   </div>
                   {programEntries.length > 1 && showRepeater && (
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-500/10"
                       onClick={() => removeProgramEntry(entry.id)}
                     >
                       <Trash2 className="h-4 w-4 mr-1" />
@@ -416,8 +416,8 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                   {/* Row 1: AIP Code, Department, Sector, Sub-sector */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`aipCode-${entry.id}`} className="text-slate-700">
-                        AIP Code <span className="text-red-500">*</span>
+                      <Label htmlFor={`aipCode-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        AIP Code <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Select 
                         value={entry.aipCode} 
@@ -440,12 +440,12 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                           ))}
                         </SelectContent>
                       </Select>
-                      {errors[entry.id]?.aipCode && <p className="text-xs text-red-500 font-medium">{errors[entry.id].aipCode}</p>}
+                      {errors[entry.id]?.aipCode && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].aipCode}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`department-${entry.id}`} className="text-slate-700">
-                        Department <span className="text-red-500">*</span>
+                      <Label htmlFor={`department-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        Department <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Select 
                         value={entry.department} 
@@ -460,12 +460,12 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                           ))}
                         </SelectContent>
                       </Select>
-                      {errors[entry.id]?.department && <p className="text-xs text-red-500 font-medium">{errors[entry.id].department}</p>}
+                      {errors[entry.id]?.department && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].department}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`sector-${entry.id}`} className="text-slate-700">
-                        Sector <span className="text-red-500">*</span>
+                      <Label htmlFor={`sector-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        Sector <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Select 
                         value={entry.sector} 
@@ -480,11 +480,11 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                           ))}
                         </SelectContent>
                       </Select>
-                      {errors[entry.id]?.sector && <p className="text-xs text-red-500 font-medium">{errors[entry.id].sector}</p>}
+                      {errors[entry.id]?.sector && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].sector}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`subSector-${entry.id}`} className="text-slate-700">
+                      <Label htmlFor={`subSector-${entry.id}`} className="text-slate-700 dark:text-slate-300">
                         Sub-sector
                       </Label>
                       <Select 
@@ -507,7 +507,7 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                   {/* Row 2: Service Type, Fund Type, Expense Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`serviceType-${entry.id}`} className="text-slate-700">
+                      <Label htmlFor={`serviceType-${entry.id}`} className="text-slate-700 dark:text-slate-300">
                         Service Type
                       </Label>
                       <Select 
@@ -526,7 +526,7 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`fundType-${entry.id}`} className="text-slate-700">
+                      <Label htmlFor={`fundType-${entry.id}`} className="text-slate-700 dark:text-slate-300">
                         Fund Type
                       </Label>
                       <Select 
@@ -545,8 +545,8 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`expenseType-${entry.id}`} className="text-slate-700">
-                        Expense Type <span className="text-red-500">*</span>
+                      <Label htmlFor={`expenseType-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        Expense Type <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Select 
                         value={entry.expenseType} 
@@ -561,18 +561,18 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                           <SelectItem value="co">Capital Outlay (CO)</SelectItem>
                         </SelectContent>
                       </Select>
-                      {errors[entry.id]?.expenseType && <p className="text-xs text-red-500 font-medium">{errors[entry.id].expenseType}</p>}
+                      {errors[entry.id]?.expenseType && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].expenseType}</p>}
                     </div>
                   </div>
 
                   {/* Row 3: Amount, CC Typology Code, CC Amount */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`amount-${entry.id}`} className="text-slate-700">
-                        Amount <span className="text-red-500">*</span>
+                      <Label htmlFor={`amount-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        Amount <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <div className="relative">
-                        <span className="absolute left-3 top-2.5 text-slate-500 font-medium">₱</span>
+                        <span className="absolute left-3 top-2.5 text-slate-500 dark:text-slate-400 font-medium">₱</span>
                         <Input 
                           id={`amount-${entry.id}`}
                           value={entry.amount}
@@ -584,11 +584,11 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                           className={`pl-8 text-right font-mono ${errors[entry.id]?.amount ? "border-red-500 ring-red-500" : ""}`}
                         />
                       </div>
-                      {errors[entry.id]?.amount && <p className="text-xs text-red-500 font-medium">{errors[entry.id].amount}</p>}
+                      {errors[entry.id]?.amount && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].amount}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`ccTypologyCode-${entry.id}`} className="text-slate-700">
+                      <Label htmlFor={`ccTypologyCode-${entry.id}`} className="text-slate-700 dark:text-slate-300">
                         CC Typology Code
                       </Label>
                       <Input 
@@ -600,11 +600,11 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`ccAmount-${entry.id}`} className="text-slate-700">
+                      <Label htmlFor={`ccAmount-${entry.id}`} className="text-slate-700 dark:text-slate-300">
                         CC Amount
                       </Label>
                       <div className="relative">
-                        <span className="absolute left-3 top-2.5 text-slate-500 font-medium">₱</span>
+                        <span className="absolute left-3 top-2.5 text-slate-500 dark:text-slate-400 font-medium">₱</span>
                         <Input 
                           id={`ccAmount-${entry.id}`}
                           value={entry.ccAmount}
@@ -622,8 +622,8 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                   {/* Row 4: Project/Program/Activity, Expected Output */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`ppa-${entry.id}`} className="text-slate-700">
-                        Project/Program/Activity <span className="text-red-500">*</span>
+                      <Label htmlFor={`ppa-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        Project/Program/Activity <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Textarea 
                         id={`ppa-${entry.id}`}
@@ -632,12 +632,12 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                         placeholder="Describe the project, program, or activity..."
                         className={`min-h-[100px] resize-y ${errors[entry.id]?.ppa ? "border-red-500 ring-red-500" : ""}`}
                       />
-                      {errors[entry.id]?.ppa && <p className="text-xs text-red-500 font-medium">{errors[entry.id].ppa}</p>}
+                      {errors[entry.id]?.ppa && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].ppa}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor={`expectedOutput-${entry.id}`} className="text-slate-700">
-                        Expected Output <span className="text-red-500">*</span>
+                      <Label htmlFor={`expectedOutput-${entry.id}`} className="text-slate-700 dark:text-slate-300">
+                        Expected Output <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Textarea 
                         id={`expectedOutput-${entry.id}`}
@@ -646,7 +646,7 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
                         placeholder="What are the expected deliverables or outcomes?"
                         className={`min-h-[100px] resize-y ${errors[entry.id]?.expectedOutput ? "border-red-500 ring-red-500" : ""}`}
                       />
-                      {errors[entry.id]?.expectedOutput && <p className="text-xs text-red-500 font-medium">{errors[entry.id].expectedOutput}</p>}
+                      {errors[entry.id]?.expectedOutput && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].expectedOutput}</p>}
                     </div>
                   </div>
                 </div>
@@ -657,7 +657,7 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
             {showRepeater && (
               <Button 
                 variant="outline" 
-                className="w-full border-dashed border-2 h-12 text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                className="w-full border-dashed border-2 h-12 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
                 onClick={addProgramEntry}
               >
                 <Plus className="h-4 w-4 mr-2" />
@@ -667,9 +667,9 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
           </div>
 
           {/* Sticky Footer */}
-          <div className="sticky bottom-0 z-20 bg-white border-t border-slate-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-            <p className="text-sm text-slate-500 flex items-center gap-1.5">
-              <Target className="h-4 w-4 text-slate-400" />
+          <div className="sticky bottom-0 z-20 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] dark:shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.5)]">
+            <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+              <Target className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               {programEntries.length} program(s) will be created.
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -683,7 +683,7 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
               </Button>
               <Button 
                 onClick={handleSave} 
-                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white min-w-[120px]"
+                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white min-w-[120px]"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -705,13 +705,13 @@ export function AddAIPSubProgramModal({ open, onOpenChange, selectedAip, showRep
 
       {/* Unsaved Changes Confirmation Dialog */}
       <Dialog open={showConfirmClose} onOpenChange={setShowConfirmClose}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md dark:bg-slate-900">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600">
+            <DialogTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
               <AlertTriangle className="h-5 w-5" />
               Unsaved Changes
             </DialogTitle>
-            <DialogDescription className="text-base text-slate-600 pt-2">
+            <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
               You have unsaved changes. Are you sure you want to close this form? All your progress will be lost.
             </DialogDescription>
           </DialogHeader>

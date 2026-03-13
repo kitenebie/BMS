@@ -262,32 +262,32 @@ export function MainAnnualInvestmentPlanModal({
         if (!val) handleCloseClick()
       }}>
         <DialogContent 
-          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50"
+          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50 dark:bg-slate-950/50"
           onInteractOutside={handleInteractOutside}
           hideCloseButton
         >
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-white border-b border-slate-200 px-6 py-5 shadow-sm">
+          <div className="sticky top-0 z-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-5 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-1.5">
-                  <div className="bg-indigo-100 p-2 rounded-lg">
-                    <FolderTree className="h-5 w-5 text-indigo-700" />
+                  <div className="bg-indigo-100 dark:bg-indigo-500/20 p-2 rounded-lg">
+                    <FolderTree className="h-5 w-5 text-indigo-700 dark:text-indigo-400" />
                   </div>
-                  <DialogTitle className="text-2xl font-bold text-slate-900">Main Annual Investment Plan</DialogTitle>
-                  <Badge variant="secondary" className="bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-indigo-200 ml-2">
+                  <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Main Annual Investment Plan</DialogTitle>
+                  <Badge variant="secondary" className="bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 border-indigo-200 dark:border-indigo-500/20 ml-2">
                     <CheckCircle2 className="h-3 w-3 mr-1" />
                     Master Record
                   </Badge>
                 </div>
-                <DialogDescription className="text-slate-500 text-base">
+                <DialogDescription className="text-slate-500 dark:text-slate-400 text-base">
                   Create primary AIP entries for departments, sectors, and program classifications.
                 </DialogDescription>
               </div>
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-8 w-8 rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                className="h-8 w-8 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
                 onClick={handleCloseClick}
               >
                 <X className="h-5 w-5" />
@@ -301,17 +301,17 @@ export function MainAnnualInvestmentPlanModal({
             {entries.map((entry, index) => {
               const summary = getEntrySummary(entry)
               return (
-                <div key={entry.id} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div key={entry.id} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
                   {/* Entry Header */}
-                  <div className="bg-slate-50/80 border-b border-slate-100 px-5 py-3 flex items-center justify-between">
+                  <div className="bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 px-5 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-slate-800">AIP Entry #{index + 1}</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">AIP Entry #{index + 1}</span>
                     </div>
                     {entries.length > 1 && showRepeater && (
                       <Button 
                         variant="ghost" 
                         size="sm"
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-500/10"
                         onClick={() => removeEntry(entry.id)}
                       >
                         <Trash2 className="h-4 w-4 mr-1" />
@@ -325,8 +325,8 @@ export function MainAnnualInvestmentPlanModal({
                     <div className="flex flex-col xl:flex-row gap-8">
                       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div className="space-y-2 lg:col-span-2">
-                          <Label htmlFor={`department-${entry.id}`} className="text-slate-700 font-medium">
-                            Department <span className="text-red-500">*</span>
+                          <Label htmlFor={`department-${entry.id}`} className="text-slate-700 dark:text-slate-300 font-medium">
+                            Department <span className="text-red-500 dark:text-red-400">*</span>
                           </Label>
                           <Select 
                             value={entry.department} 
@@ -341,12 +341,12 @@ export function MainAnnualInvestmentPlanModal({
                               ))}
                             </SelectContent>
                           </Select>
-                          {errors[entry.id]?.department && <p className="text-xs text-red-500 font-medium">{errors[entry.id].department}</p>}
+                          {errors[entry.id]?.department && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].department}</p>}
                         </div>
 
                         <div className="space-y-2 lg:col-span-2">
-                          <Label htmlFor={`sector-${entry.id}`} className="text-slate-700 font-medium">
-                            Sector <span className="text-red-500">*</span>
+                          <Label htmlFor={`sector-${entry.id}`} className="text-slate-700 dark:text-slate-300 font-medium">
+                            Sector <span className="text-red-500 dark:text-red-400">*</span>
                           </Label>
                           <Select 
                             value={entry.sector} 
@@ -361,12 +361,12 @@ export function MainAnnualInvestmentPlanModal({
                               ))}
                             </SelectContent>
                           </Select>
-                          {errors[entry.id]?.sector && <p className="text-xs text-red-500 font-medium">{errors[entry.id].sector}</p>}
+                          {errors[entry.id]?.sector && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].sector}</p>}
                         </div>
 
                         <div className="space-y-2 lg:col-span-2">
-                          <Label htmlFor={`subSector-${entry.id}`} className="text-slate-700 font-medium">
-                            Sub-sector <span className="text-red-500">*</span>
+                          <Label htmlFor={`subSector-${entry.id}`} className="text-slate-700 dark:text-slate-300 font-medium">
+                            Sub-sector <span className="text-red-500 dark:text-red-400">*</span>
                           </Label>
                           <Select 
                             value={entry.subSector} 
@@ -382,60 +382,60 @@ export function MainAnnualInvestmentPlanModal({
                               ))}
                             </SelectContent>
                           </Select>
-                          {errors[entry.id]?.subSector && <p className="text-xs text-red-500 font-medium">{errors[entry.id].subSector}</p>}
+                          {errors[entry.id]?.subSector && <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].subSector}</p>}
                         </div>
 
                         <div className="space-y-2 lg:col-span-2">
-                          <Label htmlFor={`aipCode-${entry.id}`} className="text-slate-700 font-medium">
-                            AIP Code <span className="text-red-500">*</span>
+                          <Label htmlFor={`aipCode-${entry.id}`} className="text-slate-700 dark:text-slate-300 font-medium">
+                            AIP Code <span className="text-red-500 dark:text-red-400">*</span>
                           </Label>
                           <div className="relative">
-                            <Hash className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                            <Hash className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
                             <Input 
                               id={`aipCode-${entry.id}`}
                               value={entry.aipCode}
                               onChange={(e) => handleEntryChange(entry.id, "aipCode", e.target.value)}
                               placeholder="e.g. 1000-000-2-01-01-000-000"
-                              className={`pl-9 h-11 font-mono text-slate-700 ${errors[entry.id]?.aipCode ? "border-red-500 ring-red-500" : ""}`}
+                              className={`pl-9 h-11 font-mono text-slate-700 dark:text-slate-300 ${errors[entry.id]?.aipCode ? "border-red-500 ring-red-500" : ""}`}
                             />
                           </div>
                           {errors[entry.id]?.aipCode ? (
-                            <p className="text-xs text-red-500 font-medium">{errors[entry.id].aipCode}</p>
+                            <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].aipCode}</p>
                           ) : (
-                            <p className="text-xs text-slate-500">Use the official AIP master code format.</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">Use the official AIP master code format.</p>
                           )}
                         </div>
                       </div>
 
                       {/* Live Summary Preview Card */}
-                      <div className="w-full xl:w-80 bg-slate-50 border border-slate-200 rounded-xl p-5 shrink-0 flex flex-col">
-                        <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                      <div className="w-full xl:w-80 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shrink-0 flex flex-col">
+                        <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
                           <Info className="h-3.5 w-3.5" />
                           Classification Preview
                         </h4>
                         <div className="space-y-4 flex-1">
                           <div>
-                            <span className="text-xs text-slate-500 block mb-1">Department</span>
-                            <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Department</span>
+                            <span className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-2">
                               {summary.department}
                             </span>
                           </div>
                           <div>
-                            <span className="text-xs text-slate-500 block mb-1">Sector</span>
-                            <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Sector</span>
+                            <span className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-2">
                               {summary.sector}
                             </span>
                           </div>
                           <div>
-                            <span className="text-xs text-slate-500 block mb-1">Sub-sector</span>
-                            <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Sub-sector</span>
+                            <span className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-2">
                               {summary.subSector}
                             </span>
                           </div>
                         </div>
-                        <div className="pt-4 mt-4 border-t border-slate-200">
-                          <span className="text-xs text-slate-500 block mb-1">AIP Code</span>
-                          <span className="text-base font-bold text-indigo-700 font-mono break-all">
+                        <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-700">
+                          <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">AIP Code</span>
+                          <span className="text-base font-bold text-indigo-700 dark:text-indigo-400 font-mono break-all">
                             {summary.aipCode}
                           </span>
                         </div>
@@ -444,8 +444,8 @@ export function MainAnnualInvestmentPlanModal({
 
                     {/* Program Details */}
                     <div className="space-y-2">
-                      <Label htmlFor={`projectProgramActivity-${entry.id}`} className="text-slate-700 font-medium">
-                        Project / Program / Activity <span className="text-red-500">*</span>
+                      <Label htmlFor={`projectProgramActivity-${entry.id}`} className="text-slate-700 dark:text-slate-300 font-medium">
+                        Project / Program / Activity <span className="text-red-500 dark:text-red-400">*</span>
                       </Label>
                       <Textarea 
                         id={`projectProgramActivity-${entry.id}`}
@@ -455,9 +455,9 @@ export function MainAnnualInvestmentPlanModal({
                         className={`min-h-[120px] text-base resize-y p-4 ${errors[entry.id]?.projectProgramActivity ? "border-red-500 ring-red-500" : ""}`}
                       />
                       {errors[entry.id]?.projectProgramActivity ? (
-                        <p className="text-xs text-red-500 font-medium">{errors[entry.id].projectProgramActivity}</p>
+                        <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[entry.id].projectProgramActivity}</p>
                       ) : (
-                        <p className="text-xs text-slate-500">Enter the official office, project, or program title.</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Enter the official office, project, or program title.</p>
                       )}
                     </div>
                   </div>
@@ -469,7 +469,7 @@ export function MainAnnualInvestmentPlanModal({
             {showRepeater && (
               <Button 
                 variant="outline" 
-                className="w-full border-dashed border-2 h-12 text-slate-500 hover:text-slate-700 hover:border-slate-300"
+                className="w-full border-dashed border-2 h-12 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
                 onClick={addEntry}
               >
                 <Plus className="h-4 w-4 mr-2" />
@@ -479,9 +479,9 @@ export function MainAnnualInvestmentPlanModal({
           </div>
 
           {/* Sticky Footer */}
-          <div className="sticky bottom-0 z-20 bg-white border-t border-slate-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-            <p className="text-sm text-slate-500 flex items-center gap-1.5">
-              <Info className="h-4 w-4 text-slate-400" />
+          <div className="sticky bottom-0 z-20 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] dark:shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.5)]">
+            <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+              <Info className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               {entries.length} AIP master record(s) will be created.
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -495,7 +495,7 @@ export function MainAnnualInvestmentPlanModal({
               </Button>
               <Button 
                 onClick={handleSave} 
-                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white min-w-[140px]"
+                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white min-w-[140px]"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -517,13 +517,13 @@ export function MainAnnualInvestmentPlanModal({
 
       {/* Unsaved Changes Confirmation Dialog */}
       <Dialog open={showConfirmClose} onOpenChange={setShowConfirmClose}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md dark:bg-slate-900">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600">
+            <DialogTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
               <AlertTriangle className="h-5 w-5" />
               Unsaved Changes
             </DialogTitle>
-            <DialogDescription className="text-base text-slate-600 pt-2">
+            <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
               You have unsaved changes. Are you sure you want to close this form? All your progress will be lost.
             </DialogDescription>
           </DialogHeader>

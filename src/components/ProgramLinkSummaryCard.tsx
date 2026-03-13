@@ -16,29 +16,29 @@ export function ProgramLinkSummaryCard({
   sector,
 }: ProgramLinkSummaryCardProps) {
   return (
-    <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-4 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500" />
+    <div className="mt-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 p-4 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 dark:bg-indigo-400" />
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <Badge variant="secondary" className="bg-indigo-100 text-indigo-700 hover:bg-indigo-100 font-medium text-xs">
+          <Badge variant="secondary" className="bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 font-medium text-xs">
             Linked Program
           </Badge>
-          <div className="font-mono text-xs text-slate-500 font-medium bg-white px-2 py-1 rounded border border-slate-200 shadow-sm">
+          <div className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium bg-white dark:bg-slate-900 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 shadow-sm">
             {aipProgramCode}
           </div>
         </div>
         
         <div>
-          <h3 className="font-semibold text-slate-900 text-base">{title}</h3>
+          <h3 className="font-semibold text-slate-900 dark:text-slate-100 text-base">{title}</h3>
           
-          <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-slate-600">
+          <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-slate-600 dark:text-slate-400">
             <div className="flex items-center gap-2">
-              <Building2 className="h-4 w-4 text-slate-400" />
+              <Building2 className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               <span className="truncate max-w-[250px]">{department}</span>
             </div>
-            <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-300" />
+            <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
             <div className="flex items-center gap-2">
-              <Layers3 className="h-4 w-4 text-slate-400" />
+              <Layers3 className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               <span className="truncate max-w-[300px]">{sector}</span>
             </div>
           </div>

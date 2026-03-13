@@ -23,13 +23,13 @@ export function UnsavedChangesDialog({
 }: UnsavedChangesDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md sm:rounded-2xl p-6">
+      <DialogContent className="max-w-md sm:rounded-2xl p-6 dark:bg-slate-900">
         <DialogHeader>
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 mb-4">
-            <AlertTriangle className="h-6 w-6 text-red-600" aria-hidden="true" />
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/20 mb-4">
+            <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" aria-hidden="true" />
           </div>
-          <DialogTitle className="text-center text-xl">Discard unsaved changes?</DialogTitle>
-          <DialogDescription className="text-center pt-2">
+          <DialogTitle className="text-center text-xl dark:text-slate-100">Discard unsaved changes?</DialogTitle>
+          <DialogDescription className="text-center pt-2 dark:text-slate-400">
             You have unsaved changes in this form. If you close it now, all your progress will be lost.
           </DialogDescription>
         </DialogHeader>

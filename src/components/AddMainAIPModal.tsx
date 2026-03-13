@@ -334,21 +334,21 @@ export function AddMainAIPModal({
         if (!val) handleCloseClick()
       }}>
         <DialogContent 
-          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50"
+          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50 dark:bg-slate-950/50"
           onInteractOutside={handleInteractOutside}
           hideCloseButton
         >
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-white border-b border-slate-200 px-6 py-5 shadow-sm">
+          <div className="sticky top-0 z-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-5 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-1.5">
-                  <div className="bg-indigo-100 p-2 rounded-lg">
-                    <FolderTree className="h-5 w-5 text-indigo-700" />
+                  <div className="bg-indigo-100 dark:bg-indigo-900/50 p-2 rounded-lg">
+                    <FolderTree className="h-5 w-5 text-indigo-700 dark:text-indigo-400" />
                   </div>
-                  <DialogTitle className="text-2xl font-bold text-slate-900">Add New AIP</DialogTitle>
+                  <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Add New AIP</DialogTitle>
                 </div>
-                <DialogDescription className="text-slate-500 text-base">
+                <DialogDescription className="text-slate-500 dark:text-slate-400 text-base">
                   Add one or more Annual Investment Program entries with complete details.
                 </DialogDescription>
               </div>
@@ -357,7 +357,7 @@ export function AddMainAIPModal({
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="gap-1.5 text-green-700 border-green-600 hover:bg-green-50 hover:text-green-800"
+                  className="gap-1.5 text-emerald-700 dark:text-emerald-400 border-emerald-600 dark:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 hover:text-emerald-800 dark:hover:text-emerald-300"
                   onClick={addAipBlock}
                 >
                   <Plus className="h-4 w-4" />
@@ -368,7 +368,7 @@ export function AddMainAIPModal({
                   <Button 
                     variant="outline" 
                     size="sm"
-                    className="gap-1.5 text-red-700 border-red-600 hover:bg-red-50 hover:text-red-800"
+                    className="gap-1.5 text-red-700 dark:text-red-400 border-red-600 dark:border-red-500 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-800 dark:hover:text-red-300"
                     onClick={() => removeAipBlock(aipBlocks.length - 1)}
                   >
                     <Minus className="h-4 w-4" />
@@ -378,7 +378,7 @@ export function AddMainAIPModal({
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="h-8 w-8 rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900 ml-2"
+                  className="h-8 w-8 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 ml-2"
                   onClick={handleCloseClick}
                 >
                   <X className="h-5 w-5" />
@@ -393,13 +393,13 @@ export function AddMainAIPModal({
             {aipBlocks.map((block, blockIndex) => (
               <div 
                 key={block.id} 
-                className={`bg-white rounded-xl border shadow-sm overflow-hidden ${blockIndex > 0 ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-slate-200'}`}
+                className={`bg-white dark:bg-slate-900 rounded-xl border shadow-sm overflow-hidden ${blockIndex > 0 ? 'border-indigo-200 dark:border-indigo-800 ring-1 ring-indigo-100 dark:ring-indigo-900' : 'border-slate-200 dark:border-slate-800'}`}
               >
                 {/* AIP Block Header */}
                 {aipBlocks.length > 1 && (
-                  <div className="bg-indigo-50 border-b border-indigo-100 px-5 py-2.5 flex items-center justify-between">
-                    <span className="text-sm font-semibold text-indigo-800 flex items-center gap-2">
-                      <Badge variant="secondary" className="bg-indigo-100 text-indigo-700">
+                  <div className="bg-indigo-50 dark:bg-indigo-950/30 border-b border-indigo-100 dark:border-indigo-900/50 px-5 py-2.5 flex items-center justify-between">
+                    <span className="text-sm font-semibold text-indigo-800 dark:text-indigo-300 flex items-center gap-2">
+                      <Badge variant="secondary" className="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400">
                         AIP #{blockIndex + 1}
                       </Badge>
                     </span>
@@ -407,7 +407,7 @@ export function AddMainAIPModal({
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-6 px-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+                        className="h-6 px-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/50"
                         onClick={() => removeAipBlock(blockIndex)}
                       >
                         <Minus className="h-3.5 w-3.5" />
@@ -420,12 +420,12 @@ export function AddMainAIPModal({
                 <div className="p-5 space-y-6">
                   {/* SECTION: Select AIP */}
                   <section>
-                    <h3 className="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-indigo-600" />
+                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                       Select AIP
                     </h3>
                     <div className="max-w-md">
-                      <Label htmlFor={`select-aip-${blockIndex}`} className="text-slate-700 font-medium">
+                      <Label htmlFor={`select-aip-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                         Select AIP for:
                       </Label>
                       <Select 
@@ -450,34 +450,34 @@ export function AddMainAIPModal({
 
                   {/* SECTION: AIP Information */}
                   <section className="space-y-5">
-                    <h3 className="text-sm font-semibold text-slate-800 flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <Layers3 className="h-4 w-4 text-indigo-600" />
+                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                      <Layers3 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                       AIP Information
                     </h3>
 
                     {/* ROW 1: AIP Code, Department, Sector, Sub-sector */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor={`aip-code-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`aip-code-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           AIP Code <span className="text-red-500">*</span>
                         </Label>
                         <div className="relative">
-                          <Hash className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                          <Hash className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
                           <Input 
                             id={`aip-code-${blockIndex}`}
                             value={block.aipCode}
                             onChange={(e) => handleChange(blockIndex, "aipCode", e.target.value)}
                             placeholder="Enter an AIP Code"
-                            className={`pl-9 h-11 font-mono text-slate-700 ${errors[blockIndex]?.aipCode ? "border-red-500 ring-red-500" : ""}`}
+                            className={`pl-9 h-11 font-mono text-slate-700 dark:text-slate-300 ${errors[blockIndex]?.aipCode ? "border-red-500 ring-red-500" : ""}`}
                           />
                         </div>
                         {errors[blockIndex]?.aipCode && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].aipCode}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].aipCode}</p>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`department-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`department-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Department <span className="text-red-500">*</span>
                         </Label>
                         <Select 
@@ -497,12 +497,12 @@ export function AddMainAIPModal({
                           </SelectContent>
                         </Select>
                         {errors[blockIndex]?.department && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].department}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].department}</p>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`sector-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`sector-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Sector <span className="text-red-500">*</span>
                         </Label>
                         <Select 
@@ -522,12 +522,12 @@ export function AddMainAIPModal({
                           </SelectContent>
                         </Select>
                         {errors[blockIndex]?.sector && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].sector}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].sector}</p>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`sub-sector-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`sub-sector-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Sub-sector
                         </Label>
                         <Select 
@@ -553,11 +553,11 @@ export function AddMainAIPModal({
                     {/* ROW 2: Date Started, Date Completed, Service Type, Fund Type */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor={`date-started-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`date-started-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Date Started
                         </Label>
                         <div className="relative">
-                          <Calendar className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                          <Calendar className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
                           <Input 
                             id={`date-started-${blockIndex}`}
                             type="date"
@@ -569,11 +569,11 @@ export function AddMainAIPModal({
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`date-completed-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`date-completed-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Date Completed
                         </Label>
                         <div className="relative">
-                          <Calendar className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                          <Calendar className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
                           <Input 
                             id={`date-completed-${blockIndex}`}
                             type="date"
@@ -583,12 +583,12 @@ export function AddMainAIPModal({
                           />
                         </div>
                         {errors[blockIndex]?.dateCompleted && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].dateCompleted}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].dateCompleted}</p>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`service-type-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`service-type-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Service Type
                         </Label>
                         <Select 
@@ -607,7 +607,7 @@ export function AddMainAIPModal({
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`fund-type-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`fund-type-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Fund Type
                         </Label>
                         <Select 
@@ -629,7 +629,7 @@ export function AddMainAIPModal({
                     {/* ROW 3: Expense Type, Amount, CC Typology Code, CC Amount */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor={`expense-type-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`expense-type-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Expense Type
                         </Label>
                         <Select 
@@ -648,11 +648,11 @@ export function AddMainAIPModal({
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`amount-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`amount-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Amount <span className="text-red-500">*</span>
                         </Label>
                         <div className="relative">
-                          <Banknote className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                          <Banknote className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
                           <Input 
                             id={`amount-${blockIndex}`}
                             type="number"
@@ -661,16 +661,16 @@ export function AddMainAIPModal({
                             value={block.amount}
                             onChange={(e) => handleChange(blockIndex, "amount", e.target.value)}
                             placeholder="Enter AIP Amount"
-                            className={`pl-9 h-11 font-mono text-slate-700 ${errors[blockIndex]?.amount ? "border-red-500 ring-red-500" : ""}`}
+                            className={`pl-9 h-11 font-mono text-slate-700 dark:text-slate-300 ${errors[blockIndex]?.amount ? "border-red-500 ring-red-500" : ""}`}
                           />
                         </div>
                         {errors[blockIndex]?.amount && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].amount}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].amount}</p>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`cc-typology-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`cc-typology-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           CC Typology Code
                         </Label>
                         <Select 
@@ -689,11 +689,11 @@ export function AddMainAIPModal({
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`cc-amount-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`cc-amount-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           CC Amount
                         </Label>
                         <div className="relative">
-                          <Banknote className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                          <Banknote className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
                           <Input 
                             id={`cc-amount-${blockIndex}`}
                             type="number"
@@ -702,11 +702,11 @@ export function AddMainAIPModal({
                             value={block.ccAmount}
                             onChange={(e) => handleChange(blockIndex, "ccAmount", e.target.value)}
                             placeholder="Enter CC Amount"
-                            className={`pl-9 h-11 font-mono text-slate-700 ${errors[blockIndex]?.ccAmount ? "border-red-500 ring-red-500" : ""}`}
+                            className={`pl-9 h-11 font-mono text-slate-700 dark:text-slate-300 ${errors[blockIndex]?.ccAmount ? "border-red-500 ring-red-500" : ""}`}
                           />
                         </div>
                         {errors[blockIndex]?.ccAmount && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].ccAmount}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].ccAmount}</p>
                         )}
                       </div>
                     </div>
@@ -714,7 +714,7 @@ export function AddMainAIPModal({
                     {/* ROW 4: Project/Program/Activity, Expected Output */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor={`program-activity-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`program-activity-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Project / Program / Activity <span className="text-red-500">*</span>
                         </Label>
                         <Textarea 
@@ -726,12 +726,12 @@ export function AddMainAIPModal({
                           className={`resize-y p-3 ${errors[blockIndex]?.programActivity ? "border-red-500 ring-red-500" : ""}`}
                         />
                         {errors[blockIndex]?.programActivity && (
-                          <p className="text-xs text-red-500 font-medium">{errors[blockIndex].programActivity}</p>
+                          <p className="text-xs text-red-500 dark:text-red-400 font-medium">{errors[blockIndex].programActivity}</p>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor={`expected-output-${blockIndex}`} className="text-slate-700 font-medium">
+                        <Label htmlFor={`expected-output-${blockIndex}`} className="text-slate-700 dark:text-slate-300 font-medium">
                           Expected Output
                         </Label>
                         <Textarea 
@@ -751,9 +751,9 @@ export function AddMainAIPModal({
           </div>
 
           {/* Sticky Footer */}
-          <div className="sticky bottom-0 z-20 bg-white border-t border-slate-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-            <p className="text-sm text-slate-500 flex items-center gap-1.5">
-              <Info className="h-4 w-4 text-slate-400" />
+          <div className="sticky bottom-0 z-20 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+              <Info className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               {aipBlocks.length} AIP block(s) ready to save
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -767,7 +767,7 @@ export function AddMainAIPModal({
               </Button>
               <Button 
                 onClick={handleSave} 
-                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white min-w-[140px]"
+                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white min-w-[140px]"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -789,13 +789,13 @@ export function AddMainAIPModal({
 
       {/* Unsaved Changes Confirmation Dialog */}
       <Dialog open={showConfirmClose} onOpenChange={setShowConfirmClose}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md dark:bg-slate-900">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600">
+            <DialogTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
               <AlertTriangle className="h-5 w-5" />
               Unsaved Changes
             </DialogTitle>
-            <DialogDescription className="text-base text-slate-600 pt-2">
+            <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
               You have unsaved changes. Are you sure you want to close this form? All your progress will be lost.
             </DialogDescription>
           </DialogHeader>

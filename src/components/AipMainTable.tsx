@@ -302,17 +302,17 @@ export function AipMainTable() {
   const uniqueSectors = Array.from(new Set(aipMainRows.map((row) => row.sector)))
 
   return (
-    <div className="flex flex-col w-full bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="flex flex-col w-full bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
       {/* Table Header Controls */}
-      <div className="p-4 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white">
+      <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-950">
         <div className="flex-1 flex items-center gap-3 transition-all min-h-[40px]">
           {!showFilters ? (
             <div className="relative w-full md:max-w-sm animate-in fade-in zoom-in-95 duration-200">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
               <Input
                 type="search"
                 placeholder="Search by code, PPA, or sector..."
-                className="pl-9 h-10 bg-slate-50/50 border-slate-200 focus-visible:ring-green-600"
+                className="pl-9 h-10 bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 focus-visible:ring-green-600 dark:focus-visible:ring-emerald-500 dark:text-slate-100"
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -320,7 +320,7 @@ export function AipMainTable() {
           ) : (
             <div className="flex flex-wrap items-center gap-3 w-full animate-in fade-in slide-in-from-left-2 duration-200">
               <Select value={filterSector} onValueChange={handleSectorChange}>
-                <SelectTrigger className="h-10 w-[160px] bg-slate-50/50 border-slate-200">
+                <SelectTrigger className="h-10 w-[160px] bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 dark:text-slate-100">
                   <SelectValue placeholder="Sector" />
                 </SelectTrigger>
                 <SelectContent>
@@ -334,7 +334,7 @@ export function AipMainTable() {
               </Select>
 
               <Select value={filterAmount} onValueChange={handleAmountChange}>
-                <SelectTrigger className="h-10 w-[180px] bg-slate-50/50 border-slate-200">
+                <SelectTrigger className="h-10 w-[180px] bg-slate-50/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 dark:text-slate-100">
                   <SelectValue placeholder="Total Amount" />
                 </SelectTrigger>
                 <SelectContent>
@@ -349,7 +349,7 @@ export function AipMainTable() {
                 <Button 
                   variant="ghost" 
                   onClick={clearFilters} 
-                  className="h-10 px-3 text-slate-500 hover:text-slate-900"
+                  className="h-10 px-3 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
                 >
                   <X className="h-4 w-4 mr-2" />
                   Clear
@@ -365,8 +365,8 @@ export function AipMainTable() {
             size="sm" 
             className={`gap-2 h-10 px-4 transition-colors ${
               showFilters 
-                ? "bg-slate-100 text-slate-900 border-transparent" 
-                : "text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                ? "bg-slate-100 text-slate-900 border-transparent dark:bg-slate-800 dark:text-slate-100" 
+                : "text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:border-slate-800 dark:hover:bg-slate-900 dark:hover:text-slate-100"
             }`}
             onClick={() => setShowFilters(!showFilters)}
           >
@@ -376,7 +376,7 @@ export function AipMainTable() {
           <Button 
             variant="outline" 
             size="sm" 
-            className="gap-2 h-10 px-4 text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+            className="gap-2 h-10 px-4 text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:border-slate-800 dark:hover:bg-slate-900 dark:hover:text-slate-100"
             onClick={() => setIsCloneModalOpen(true)}
           >
             <Copy className="h-4 w-4" />
@@ -385,7 +385,7 @@ export function AipMainTable() {
           <Button 
             variant="outline" 
             size="sm" 
-            className="gap-2 h-10 px-4 text-amber-600 border-amber-200 bg-amber-50/30 hover:bg-amber-50 hover:text-amber-700"
+            className="gap-2 h-10 px-4 text-amber-600 border-amber-200 bg-amber-50/30 hover:bg-amber-50 hover:text-amber-700 dark:text-amber-500 dark:border-amber-500/30 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 dark:hover:text-amber-400"
             onClick={() => setIsRollbackModalOpen(true)}
           >
             <RotateCcw className="h-4 w-4" />
@@ -397,14 +397,14 @@ export function AipMainTable() {
       {/* Table Content */}
       <div className="overflow-x-auto">
         <Table>
-          <TableHeader className="bg-slate-50/80 sticky top-0 z-10">
-            <TableRow className="hover:bg-transparent border-b border-slate-200">
-              <TableHead className="w-[220px] font-semibold text-slate-700 h-11">AIP Code</TableHead>
-              <TableHead className="font-semibold text-slate-700 h-11">PPA / Description</TableHead>
-              <TableHead className="font-semibold text-slate-700 h-11">Sector</TableHead>
-              <TableHead className="text-right font-semibold text-slate-700 h-11">Total Amount</TableHead>
-              <TableHead className="text-right font-semibold text-slate-700 h-11">Total LEP</TableHead>
-              <TableHead className="w-[140px] text-right font-semibold text-slate-700 h-11 pr-6">Actions</TableHead>
+          <TableHeader className="bg-slate-50/80 dark:bg-slate-900/80 sticky top-0 z-10">
+            <TableRow className="hover:bg-transparent border-b border-slate-200 dark:border-slate-800">
+              <TableHead className="w-[220px] font-semibold text-slate-700 dark:text-slate-300 h-11">AIP Code</TableHead>
+              <TableHead className="font-semibold text-slate-700 dark:text-slate-300 h-11">PPA / Description</TableHead>
+              <TableHead className="font-semibold text-slate-700 dark:text-slate-300 h-11">Sector</TableHead>
+              <TableHead className="text-right font-semibold text-slate-700 dark:text-slate-300 h-11">Total Amount</TableHead>
+              <TableHead className="text-right font-semibold text-slate-700 dark:text-slate-300 h-11">Total LEP</TableHead>
+              <TableHead className="w-[140px] text-right font-semibold text-slate-700 dark:text-slate-300 h-11 pr-6">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -412,23 +412,23 @@ export function AipMainTable() {
               paginatedData.map((item, index) => (
                 <TableRow 
                   key={item.id} 
-                  className={`group transition-colors hover:bg-slate-50/80 ${index !== paginatedData.length - 1 ? 'border-b border-slate-100' : 'border-0'}`}
+                  className={`group transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-900/80 ${index !== paginatedData.length - 1 ? 'border-b border-slate-100 dark:border-slate-800' : 'border-0'}`}
                 >
-                  <TableCell className="font-mono text-xs font-medium text-slate-900 py-3">
+                  <TableCell className="font-mono text-xs font-medium text-slate-900 dark:text-slate-100 py-3">
                     {item.aipCode}
                   </TableCell>
-                  <TableCell className="font-medium text-slate-900 py-3 max-w-[300px] truncate" title={item.ppa}>
+                  <TableCell className="font-medium text-slate-900 dark:text-slate-100 py-3 max-w-[300px] truncate" title={item.ppa}>
                     {item.ppa}
                   </TableCell>
                   <TableCell className="py-3">
-                    <Badge variant="secondary" className="font-normal text-xs bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <Badge variant="secondary" className="font-normal text-xs bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
                       {item.sector}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right font-medium text-slate-900 py-3">
+                  <TableCell className="text-right font-medium text-slate-900 dark:text-slate-100 py-3">
                     {formatCurrency(item.totalAmount)}
                   </TableCell>
-                  <TableCell className="text-right text-slate-600 py-3">
+                  <TableCell className="text-right text-slate-600 dark:text-slate-400 py-3">
                     {formatCurrency(item.totalLep)}
                   </TableCell>
                   <TableCell className="py-3 pr-4">
@@ -449,7 +449,7 @@ export function AipMainTable() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="h-32 text-center text-slate-500">
+                <TableCell colSpan={6} className="h-32 text-center text-slate-500 dark:text-slate-400">
                   No AIP records found matching your search.
                 </TableCell>
               </TableRow>

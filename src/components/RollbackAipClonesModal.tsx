@@ -54,24 +54,24 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-[680px] p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-[680px] p-0 overflow-hidden gap-0 dark:bg-slate-900">
           <div className="p-6 sm:p-8">
             <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl font-bold text-slate-900">Rollback AIP Clones</DialogTitle>
-              <DialogDescription className="text-base text-slate-500">
+              <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Rollback AIP Clones</DialogTitle>
+              <DialogDescription className="text-base text-slate-500 dark:text-slate-400">
                 Remove cloned AIP records for a specific year
               </DialogDescription>
             </DialogHeader>
 
-            <Alert variant="destructive" className="mb-8 border-red-200 bg-red-50/50">
-              <AlertTriangle className="h-5 w-5 text-red-600" />
-              <AlertDescription className="text-sm font-medium text-red-800">
+            <Alert variant="destructive" className="mb-8 border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-900/20">
+              <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
+              <AlertDescription className="text-sm font-medium text-red-800 dark:text-red-300">
                 This will delete all cloned records for the selected year. Proceed with caution as this action is irreversible.
               </AlertDescription>
             </Alert>
 
             <div className="space-y-3">
-              <Label className="text-sm font-semibold text-slate-700">Select year to rollback</Label>
+              <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Select year to rollback</Label>
               <Select value={selectedYear} onValueChange={setSelectedYear}>
                 <SelectTrigger className="h-11 max-w-sm">
                   <SelectValue placeholder="Select year" />
@@ -84,17 +84,17 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
                   ))}
                 </SelectContent>
               </Select>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 Only cloned AIP records for the selected year will be removed.
               </p>
               {!selectedYear && (
-                <p className="text-sm text-red-500 font-medium">Rollback year is required</p>
+                <p className="text-sm text-red-500 dark:text-red-400 font-medium">Rollback year is required</p>
               )}
             </div>
           </div>
 
-          <div className="bg-slate-50 px-6 py-4 sm:px-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-slate-500 font-medium">
+          <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 sm:px-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
               This action removes cloned records for one year only.
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -121,29 +121,29 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
 
       {/* Confirmation Dialog */}
       <Dialog open={isConfirming} onOpenChange={setIsConfirming}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md dark:bg-slate-900">
           <DialogHeader>
-            <DialogTitle className="text-red-600 flex items-center gap-2">
+            <DialogTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />
               Confirm rollback
             </DialogTitle>
-            <DialogDescription className="text-base text-slate-600 pt-2">
-              Are you sure you want to remove all cloned AIP records for <strong className="text-slate-900">{selectedYear}</strong>? This action cannot be undone.
+            <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
+              Are you sure you want to remove all cloned AIP records for <strong className="text-slate-900 dark:text-slate-100">{selectedYear}</strong>? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           
-          <div className="bg-red-50/50 border border-red-100 rounded-lg p-4 my-4 space-y-2">
+          <div className="bg-red-50/50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/50 rounded-lg p-4 my-4 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Year:</span>
-              <span className="font-semibold text-slate-900">{selectedYear}</span>
+              <span className="text-slate-600 dark:text-slate-400">Year:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">{selectedYear}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Action:</span>
-              <span className="font-semibold text-slate-900">Delete cloned AIP records</span>
+              <span className="text-slate-600 dark:text-slate-400">Action:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">Delete cloned AIP records</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Risk Level:</span>
-              <span className="font-semibold text-red-600">High</span>
+              <span className="text-slate-600 dark:text-slate-400">Risk Level:</span>
+              <span className="font-semibold text-red-600 dark:text-red-400">High</span>
             </div>
           </div>
 
@@ -157,11 +157,11 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
             <div className="grid gap-1.5 leading-none">
               <label
                 htmlFor="confirm-risk"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer text-slate-700"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer text-slate-700 dark:text-slate-300"
               >
                 I understand that this action is irreversible
               </label>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 Please confirm only if you are certain that this year's cloned records should be deleted.
               </p>
             </div>

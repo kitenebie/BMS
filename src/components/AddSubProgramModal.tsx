@@ -129,19 +129,19 @@ export function AddSubProgramModal({ open, onOpenChange }: AddSubProgramModalPro
     <>
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent 
-          className="max-w-[1200px] xl:max-w-[1400px] p-0 gap-0 bg-slate-50/50 shadow-2xl sm:rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
+          className="max-w-[1200px] xl:max-w-[1400px] p-0 gap-0 bg-slate-50/50 dark:bg-slate-950/50 shadow-2xl sm:rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
           hideCloseButton
         >
           {/* STICKY HEADER */}
-          <DialogHeader className="px-6 py-5 border-b border-slate-200 bg-white sticky top-0 z-20 shadow-sm">
+          <DialogHeader className="px-6 py-5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 sticky top-0 z-20 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
-                <DialogTitle className="text-2xl font-bold text-slate-900">Add Program for:</DialogTitle>
+                <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Add Program for:</DialogTitle>
               </div>
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-8 w-8 rounded-full text-slate-500 hover:bg-slate-100"
+                className="h-8 w-8 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
                 onClick={() => handleClose(false)}
               >
                 <span className="sr-only">Close</span>
@@ -158,7 +158,7 @@ export function AddSubProgramModal({ open, onOpenChange }: AddSubProgramModalPro
           </DialogHeader>
 
           {/* SCROLLABLE BODY */}
-          <div className="flex-1 overflow-y-auto px-6 py-2 bg-slate-50/30">
+          <div className="flex-1 overflow-y-auto px-6 py-2 bg-slate-50/30 dark:bg-slate-950/30">
             <form id="sub-program-form" onSubmit={handleSubmit(onSubmit)}>
               <SubProgramFormSections 
                 form={form}
@@ -171,8 +171,8 @@ export function AddSubProgramModal({ open, onOpenChange }: AddSubProgramModalPro
           </div>
 
           {/* STICKY FOOTER */}
-          <DialogFooter className="px-6 py-4 border-t border-slate-200 bg-white sticky bottom-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-sm text-slate-500 italic">
+          <DialogFooter className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 sticky bottom-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] dark:shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.5)] flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400 italic">
               Ensure classification and financial details are correct before saving.
             </p>
             <div className="flex items-center gap-3 w-full sm:w-auto">

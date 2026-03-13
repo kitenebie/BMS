@@ -28,8 +28,8 @@ export function AIP() {
       {activeTab === "main" && (
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-green-700">A.I.P Main</h1>
-            <p className="text-slate-500 mt-1">This is your Main Annual Investment Plan Table.</p>
+            <h1 className="text-3xl font-bold tracking-tight text-green-700 dark:text-emerald-500">A.I.P Main</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">This is your Main Annual Investment Plan Table.</p>
           </div>
           <div className="flex items-center gap-2">
             <Button className="gap-2" onClick={() => setIsMainModalOpen(true)}>
@@ -51,11 +51,11 @@ export function AIP() {
       {activeTab === "program" && (
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-orange-500">A.I.P Program</h1>
-            <p className="text-slate-500 mt-1">This is your Annual Investment Plan Program Table.</p>
+            <h1 className="text-3xl font-bold tracking-tight text-orange-500 dark:text-orange-400">A.I.P Program</h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-1">This is your Annual Investment Plan Program Table.</p>
           </div>
           <div className="flex items-center gap-2">
-            <Button className="gap-2 bg-orange-500 hover:bg-orange-600" onClick={() => setIsProgramModalOpen(true)}>
+            <Button className="gap-2 bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 text-white" onClick={() => setIsProgramModalOpen(true)}>
               <Plus className="h-4 w-4" />
               Add Program
             </Button>
@@ -64,13 +64,13 @@ export function AIP() {
       )}
 
       {/* Tabs */}
-      <div className="flex space-x-1 rounded-lg bg-slate-100 p-1 w-fit">
+      <div className="flex space-x-1 rounded-lg bg-slate-100 dark:bg-slate-900 p-1 w-fit">
         <button
           onClick={() => setActiveTab("main")}
           className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
             activeTab === "main" 
-              ? "bg-white text-slate-900 shadow-sm" 
-              : "text-slate-600 hover:text-slate-900"
+              ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-50" 
+              : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
           }`}
         >
           Main AIP
@@ -79,8 +79,8 @@ export function AIP() {
           onClick={() => setActiveTab("program")}
           className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
             activeTab === "program" 
-              ? "bg-white text-slate-900 shadow-sm" 
-              : "text-slate-600 hover:text-slate-900"
+              ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-50" 
+              : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
           }`}
         >
           AIP Program

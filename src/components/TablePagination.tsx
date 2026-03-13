@@ -77,21 +77,21 @@ export function TablePagination({
   }
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-slate-100 bg-white gap-4">
-      <div className="text-sm text-slate-500">
-        Showing <span className="font-medium text-slate-900">{startItem}</span> to{" "}
-        <span className="font-medium text-slate-900">{endItem}</span> of{" "}
-        <span className="font-medium text-slate-900">{totalItems}</span> AIP entries
+    <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 gap-4">
+      <div className="text-sm text-slate-500 dark:text-slate-400">
+        Showing <span className="font-medium text-slate-900 dark:text-slate-100">{startItem}</span> to{" "}
+        <span className="font-medium text-slate-900 dark:text-slate-100">{endItem}</span> of{" "}
+        <span className="font-medium text-slate-900 dark:text-slate-100">{totalItems}</span> AIP entries
       </div>
 
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-medium text-slate-500 hidden sm:block">Rows per page</p>
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 hidden sm:block">Rows per page</p>
           <Select
             value={pageSize.toString()}
             onValueChange={(value) => onPageSizeChange(Number(value))}
           >
-            <SelectTrigger className="h-8 w-[70px] text-xs">
+            <SelectTrigger className="h-8 w-[70px] text-xs bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 dark:text-slate-100">
               <SelectValue placeholder={pageSize.toString()} />
             </SelectTrigger>
             <SelectContent side="top">
@@ -107,7 +107,7 @@ export function TablePagination({
         <div className="flex items-center gap-1">
           <Button
             variant="outline"
-            className="h-8 w-8 p-0 hidden sm:flex"
+            className="h-8 w-8 p-0 hidden sm:flex dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={handleFirst}
             disabled={currentPage === 1}
             aria-label="Go to first page"
@@ -116,7 +116,7 @@ export function TablePagination({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={handlePrevious}
             disabled={currentPage === 1}
             aria-label="Go to previous page"
@@ -131,8 +131,8 @@ export function TablePagination({
                 variant={currentPage === page ? "default" : "ghost"}
                 className={`h-8 w-8 p-0 text-sm ${
                   currentPage === page 
-                    ? "bg-green-600 hover:bg-green-700 text-white" 
-                    : "text-slate-600 hover:bg-slate-100"
+                    ? "bg-emerald-600 hover:bg-emerald-700 text-white" 
+                    : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                 }`}
                 onClick={() => onPageChange(page)}
                 aria-label={`Go to page ${page}`}
@@ -145,7 +145,7 @@ export function TablePagination({
 
           <Button
             variant="outline"
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={handleNext}
             disabled={currentPage === totalPages || totalPages === 0}
             aria-label="Go to next page"
@@ -154,7 +154,7 @@ export function TablePagination({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0 hidden sm:flex"
+            className="h-8 w-8 p-0 hidden sm:flex dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={handleLast}
             disabled={currentPage === totalPages || totalPages === 0}
             aria-label="Go to last page"

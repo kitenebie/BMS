@@ -130,7 +130,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
         accessorKey: "aipCode",
         header: "AIP Code",
         cell: ({ row }) => (
-          <div className="font-mono text-xs text-slate-600 whitespace-nowrap">
+          <div className="font-mono text-xs text-slate-600 dark:text-slate-400 whitespace-nowrap">
             {row.original.aipCode}
           </div>
         ),
@@ -140,10 +140,10 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
         header: "Program / Project / Activity",
         cell: ({ row }) => (
           <div className="max-w-[300px] lg:max-w-[400px]">
-            <div className="font-medium text-slate-900 line-clamp-2" title={row.original.program}>
+            <div className="font-medium text-slate-900 dark:text-slate-100 line-clamp-2" title={row.original.program}>
               {row.original.program}
             </div>
-            <div className="text-xs text-slate-500 mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               General Administration
             </div>
           </div>
@@ -153,7 +153,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
         accessorKey: "implementingOffice",
         header: "Office",
         cell: ({ row }) => (
-          <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium">
+          <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 font-medium">
             {row.original.implementingOffice}
           </Badge>
         ),
@@ -162,7 +162,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
         accessorKey: "amount",
         header: () => <div className="text-right">Amount</div>,
         cell: ({ row }) => (
-          <div className="text-right font-mono font-medium text-slate-900">
+          <div className="text-right font-mono font-medium text-slate-900 dark:text-slate-100">
             {formatCurrency(row.original.amount)}
           </div>
         ),
@@ -176,7 +176,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
           const isGood = lep >= amount * 0.8
           
           return (
-            <div className={`text-right font-mono font-medium ${isGood ? 'text-emerald-600' : 'text-slate-700'}`}>
+            <div className={`text-right font-mono font-medium ${isGood ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
               {formatCurrency(lep)}
             </div>
           )
@@ -189,9 +189,9 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
           const obligated = row.original.obligated
           const lep = row.original.lep
           
-          let colorClass = "text-slate-700"
-          if (obligated > lep) colorClass = "text-red-600"
-          else if (obligated > lep * 0.8) colorClass = "text-amber-600"
+          let colorClass = "text-slate-700 dark:text-slate-300"
+          if (obligated > lep) colorClass = "text-red-600 dark:text-red-400"
+          else if (obligated > lep * 0.8) colorClass = "text-amber-600 dark:text-amber-400"
           
           return (
             <div className={`text-right font-mono font-medium ${colorClass}`}>
@@ -218,7 +218,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
         ),
       },
     ],
-    []
+    [data]
   )
 
   const filteredData = useMemo(() => {
@@ -251,19 +251,19 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
   }, [data])
 
   return (
-    <div className="flex flex-col w-full bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="flex flex-col w-full bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
       
       {/* 1. GLOBAL TABLE TOOLBAR */}
-      <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-slate-500">Show</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">Show</span>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {
               table.setPageSize(Number(value))
             }}
           >
-            <SelectTrigger className="h-9 w-[70px] bg-white">
+            <SelectTrigger className="h-9 w-[70px] bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 dark:text-slate-100">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent>
@@ -274,22 +274,22 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
               ))}
             </SelectContent>
           </Select>
-          <span className="text-sm text-slate-500">entries</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">entries</span>
         </div>
 
         <div className="flex-1 max-w-md relative">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
           <Input
             placeholder="Search AIP code, program name, office..."
             value={globalFilter ?? ""}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="pl-9 h-9 bg-white w-full"
+            className="pl-9 h-9 bg-white dark:bg-slate-950 w-full border-slate-200 dark:border-slate-800 dark:text-slate-100 focus-visible:ring-emerald-500"
           />
         </div>
 
         <div className="flex items-center gap-3">
           <Select value={officeFilter} onValueChange={setOfficeFilter}>
-            <SelectTrigger className="h-9 w-[140px] bg-white">
+            <SelectTrigger className="h-9 w-[140px] bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 dark:text-slate-100">
               <SelectValue placeholder="Office" />
             </SelectTrigger>
             <SelectContent>
@@ -301,7 +301,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
           </Select>
           
           <Select defaultValue="all">
-            <SelectTrigger className="h-9 w-[140px] bg-white">
+            <SelectTrigger className="h-9 w-[140px] bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 dark:text-slate-100">
               <SelectValue placeholder="Amount" />
             </SelectTrigger>
             <SelectContent>
@@ -317,12 +317,12 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
       {/* 3. TABLE STRUCTURE */}
       <div className="overflow-auto max-h-[600px] relative">
         <Table>
-          <TableHeader className="bg-slate-50 sticky top-0 z-10 shadow-sm">
+          <TableHeader className="bg-slate-50 dark:bg-slate-900/80 sticky top-0 z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="hover:bg-slate-50 border-b-slate-200">
+              <TableRow key={headerGroup.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/80 border-b-slate-200 dark:border-slate-800">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="h-11 font-semibold text-slate-700 whitespace-nowrap">
+                    <TableHead key={header.id} className="h-11 font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -341,7 +341,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-slate-50/80 transition-colors group cursor-pointer"
+                  className="hover:bg-slate-50/80 dark:hover:bg-slate-900/80 transition-colors group cursor-pointer border-b-slate-100 dark:border-slate-800"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="py-3">
@@ -353,9 +353,9 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-48 text-center">
-                  <div className="flex flex-col items-center justify-center text-slate-500">
+                  <div className="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400">
                     <p className="mb-4">No AIP programs found</p>
-                    <Button variant="outline" className="gap-2">
+                    <Button variant="outline" className="gap-2 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800">
                       <Plus className="h-4 w-4" />
                       Create First Program
                     </Button>
@@ -368,23 +368,23 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
       </div>
 
       {/* 9. PAGINATION */}
-      <div className="px-6 py-4 border-t border-slate-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="text-sm text-slate-500">
-          Showing <span className="font-medium text-slate-900">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{" "}
-          <span className="font-medium text-slate-900">
+      <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-sm text-slate-500 dark:text-slate-400">
+          Showing <span className="font-medium text-slate-900 dark:text-slate-100">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{" "}
+          <span className="font-medium text-slate-900 dark:text-slate-100">
             {Math.min(
               (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
               table.getFilteredRowModel().rows.length
             )}
           </span>{" "}
-          of <span className="font-medium text-slate-900">{table.getFilteredRowModel().rows.length}</span> programs
+          of <span className="font-medium text-slate-900 dark:text-slate-100">{table.getFilteredRowModel().rows.length}</span> programs
         </div>
         
         <div className="flex items-center gap-1">
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-md"
+            className="h-8 w-8 rounded-md dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -393,7 +393,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-md"
+            className="h-8 w-8 rounded-md dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -420,7 +420,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
                   key={pageNum}
                   variant={currentPage === pageNum ? "default" : "ghost"}
                   size="icon"
-                  className={`h-8 w-8 rounded-md ${currentPage === pageNum ? "bg-indigo-600 hover:bg-indigo-700" : "text-slate-600"}`}
+                  className={`h-8 w-8 rounded-md ${currentPage === pageNum ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "text-slate-600 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"}`}
                   onClick={() => table.setPageIndex(pageNum)}
                 >
                   {pageNum + 1}
@@ -430,11 +430,11 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
             
             {table.getPageCount() > 5 && table.getState().pagination.pageIndex < table.getPageCount() - 3 && (
               <>
-                <span className="px-2 text-slate-400">...</span>
+                <span className="px-2 text-slate-400 dark:text-slate-600">...</span>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 rounded-md text-slate-600"
+                  className="h-8 w-8 rounded-md text-slate-600 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                   onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 >
                   {table.getPageCount()}
@@ -446,7 +446,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-md"
+            className="h-8 w-8 rounded-md dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -455,7 +455,7 @@ export function AipProgramTable({ isProgramModalOpen, onProgramModalChange }: Ai
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-md"
+            className="h-8 w-8 rounded-md dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >

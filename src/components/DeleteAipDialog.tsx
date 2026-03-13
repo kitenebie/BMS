@@ -43,21 +43,21 @@ export function DeleteAipDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md dark:bg-slate-900">
         <DialogHeader>
-          <DialogTitle className="text-red-600 flex items-center gap-2">
+          <DialogTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
             <AlertTriangle className="h-5 w-5" />
             Delete AIP Record
           </DialogTitle>
-          <DialogDescription className="text-base text-slate-600 pt-2">
+          <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
             Are you sure you want to delete this AIP record? This action cannot be undone and will permanently remove the record from the database.
           </DialogDescription>
         </DialogHeader>
 
         {aipId && (
-          <div className="bg-slate-50 border border-slate-100 rounded-lg p-3 my-2">
-            <p className="text-sm text-slate-500">
-              Record ID: <span className="font-mono font-medium text-slate-900">{aipId}</span>
+          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 my-2">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Record ID: <span className="font-mono font-medium text-slate-900 dark:text-slate-100">{aipId}</span>
             </p>
           </div>
         )}
