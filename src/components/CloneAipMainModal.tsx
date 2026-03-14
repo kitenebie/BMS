@@ -55,7 +55,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-[760px] p-0 overflow-hidden gap-0 dark:bg-slate-900">
+        <DialogContent className="max-w-[760px] p-0 overflow-hidden gap-0">
           <div className="p-6 sm:p-8">
             <DialogHeader className="mb-6">
               <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Clone AIP Main</DialogTitle>
@@ -115,7 +115,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
             </div>
           </div>
 
-          <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 sm:px-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-[#F0F0F0]/70 dark:bg-[#12121a]/50 px-6 py-4 sm:px-8 border-t border-slate-300/70 dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-xl">
             <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
               Clone one year at a time for safety.
             </p>
@@ -142,7 +142,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
 
       {/* Confirmation Dialog */}
       <Dialog open={isConfirming} onOpenChange={setIsConfirming}>
-        <DialogContent className="max-w-md dark:bg-slate-900">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="dark:text-slate-100">Confirm Clone</DialogTitle>
             <DialogDescription className="dark:text-slate-400">
@@ -150,7 +150,7 @@ export function CloneAipMainModal({ open, onOpenChange }: CloneAipMainModalProps
             </DialogDescription>
           </DialogHeader>
           
-          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-lg p-4 my-4 space-y-2">
+          <div className="bg-[#F0F0F0]/60 dark:bg-[#12121a]/55 border border-slate-300/70 dark:border-white/[0.08] rounded-xl p-4 my-4 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-slate-500 dark:text-slate-400">Source Year:</span>
               <span className="font-semibold text-slate-900 dark:text-slate-100">{sourceYear}</span>

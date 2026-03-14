@@ -23,7 +23,7 @@ export function UnsavedChangesDialog({
 }: UnsavedChangesDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md sm:rounded-2xl p-6 dark:bg-slate-900">
+      <DialogContent className="max-w-md sm:rounded-2xl p-6">
         <DialogHeader>
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/20 mb-4">
             <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" aria-hidden="true" />

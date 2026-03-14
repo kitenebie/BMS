@@ -47,9 +47,9 @@ export function RowActionMenu({ aipId, aipCode, office, departmentCode, sector, 
   return (
     <div className="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
       <Button 
-        variant="ghost" 
+        variant="tab" 
         size="sm" 
-        className="h-8 px-2 border border-emerald-700 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 hover:text-emerald-800 dark:border-emerald-500/50 dark:text-emerald-400 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/20 dark:hover:text-emerald-300"
+        className="h-8 px-2 bg-gradient-to-r from-[#00ff88]/18 to-[#00cc6a]/8 text-emerald-700 border-[#00ff88]/35 dark:text-[#00ff88]"
         onClick={handleQuickAction}
         aria-label="Programs"
         title="Programs"
@@ -61,20 +61,20 @@ export function RowActionMenu({ aipId, aipCode, office, departmentCode, sector, 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button 
-            variant="ghost" 
+            variant="tab" 
             size="icon" 
-            className="h-8 w-8 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800"
+            className="h-8 w-8"
             aria-label="Open menu"
           >
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48 dark:bg-slate-950 dark:border-slate-800">
-          <DropdownMenuItem onClick={handleEdit} className="gap-2 cursor-pointer dark:focus:bg-slate-800 dark:focus:text-slate-100">
+        <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuItem onClick={handleEdit} className="gap-2 cursor-pointer">
             <Pencil className="h-4 w-4 text-slate-500 dark:text-slate-400" />
             Edit
           </DropdownMenuItem>
-          <DropdownMenuSeparator className="dark:bg-slate-800" />
+          <DropdownMenuSeparator />
           <DropdownMenuItem 
             onClick={() => onDeleteRequest(aipId)} 
             className="gap-2 cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50 dark:text-red-400 dark:focus:text-red-300 dark:focus:bg-red-950/50"

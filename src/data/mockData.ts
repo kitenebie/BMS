@@ -1,26 +1,50 @@
+import { sumDataset, type YearlyCategoryAmounts } from "@/src/lib/financialPlanning"
+
+export const aipAllocationByYear: YearlyCategoryAmounts[] = [
+  { year: 2022, PS: 120_000_000, MOOE: 300_000_000, CO: 500_000_000 },
+  { year: 2023, PS: 150_000_000, MOOE: 350_000_000, CO: 450_000_000 },
+  { year: 2024, PS: 170_000_000, MOOE: 420_000_000, CO: 600_000_000 },
+  { year: 2025, PS: 220_000_000, MOOE: 900_000_000, CO: 1_100_000_000 },
+  { year: 2026, PS: 240_000_000, MOOE: 780_000_000, CO: 850_000_000 },
+  { year: 2027, PS: 260_000_000, MOOE: 820_000_000, CO: 700_000_000 },
+  { year: 2028, PS: 280_000_000, MOOE: 860_000_000, CO: 650_000_000 },
+]
+
+export const lepBudgetByYear: YearlyCategoryAmounts[] = [
+  { year: 2022, PS: 130_000_000, MOOE: 310_000_000, CO: 480_000_000 },
+  { year: 2023, PS: 155_000_000, MOOE: 360_000_000, CO: 435_000_000 },
+  { year: 2024, PS: 175_000_000, MOOE: 430_000_000, CO: 585_000_000 },
+  { year: 2025, PS: 230_000_000, MOOE: 920_000_000, CO: 1_070_000_000 },
+  { year: 2026, PS: 250_000_000, MOOE: 800_000_000, CO: 820_000_000 },
+  { year: 2027, PS: 270_000_000, MOOE: 840_000_000, CO: 670_000_000 },
+  { year: 2028, PS: 290_000_000, MOOE: 880_000_000, CO: 620_000_000 },
+]
+
+export const obligationsByYear: YearlyCategoryAmounts[] = [
+  { year: 2022, PS: 110_000_000, MOOE: 210_000_000, CO: 320_000_000 },
+  { year: 2023, PS: 120_000_000, MOOE: 250_000_000, CO: 300_000_000 },
+  { year: 2024, PS: 140_000_000, MOOE: 320_000_000, CO: 410_000_000 },
+  { year: 2025, PS: 190_000_000, MOOE: 720_000_000, CO: 820_000_000 },
+  { year: 2026, PS: 210_000_000, MOOE: 600_000_000, CO: 620_000_000 },
+  { year: 2027, PS: 230_000_000, MOOE: 640_000_000, CO: 500_000_000 },
+  { year: 2028, PS: 250_000_000, MOOE: 670_000_000, CO: 450_000_000 },
+]
+
+// Backwards-compatible aliases (used by older dashboard charts)
+export const budgetTrend = aipAllocationByYear
+export const obligationTrend = obligationsByYear
+
+const totalAip = sumDataset(aipAllocationByYear)
+const totalLep = sumDataset(lepBudgetByYear)
+const totalObligations = sumDataset(obligationsByYear)
+
 export const dashboardStats = {
-  totalAip: 6998461961,
-  totalLep: 2167155338,
-  totalObligations: 1712931037,
-  remainingBudget: 4541314301,
-  utilizationRate: 24.48,
-};
-
-export const budgetTrend = [
-  { year: 2022, ps: 0, mooe: 0, co: 130000000 },
-  { year: 2023, ps: 0, mooe: 0, co: 20000000 },
-  { year: 2024, ps: 5000000, mooe: 10000000, co: 130000000 },
-  { year: 2025, ps: 580000000, mooe: 910000000, co: 670000000 },
-  { year: 2026, ps: 6000000, mooe: 280000000, co: 260000000 },
-];
-
-export const obligationTrend = [
-  { year: 2022, ps: 0, mooe: 0, co: 0 },
-  { year: 2023, ps: 0, mooe: 0, co: 0 },
-  { year: 2024, ps: 0, mooe: 0, co: 0 },
-  { year: 2025, ps: 380000000, mooe: 820000000, co: 490000000 },
-  { year: 2026, ps: 0, mooe: 0, co: 0 },
-];
+  totalAip,
+  totalLep,
+  totalObligations,
+  remainingBudget: totalLep - totalObligations,
+  utilizationRate: totalLep > 0 ? Number(((totalObligations / totalLep) * 100).toFixed(2)) : 0,
+}
 
 export const aipMainList = [
   {
@@ -111,6 +135,7 @@ export const annualBudgetList = [
     department: "Local School Board - Elementary",
     accountCode: "1-07-04-020",
     subAccount: "",
+    accountScope: "Project Level",
     annualBudget: 35000000,
     obligated: 139580280.67,
     remaining: -104580280.67,
@@ -126,6 +151,7 @@ export const annualBudgetList = [
     department: "Local School Board - Elementary",
     accountCode: "1-07-05-030",
     subAccount: "",
+    accountScope: "Project Level",
     annualBudget: 20000000,
     obligated: 50575225,
     remaining: -30575225,
@@ -141,6 +167,7 @@ export const annualBudgetList = [
     department: "Local School Board - Elementary",
     accountCode: "1-07-05-140",
     subAccount: "",
+    accountScope: "Project Level",
     annualBudget: 20000000,
     obligated: 3942500,
     remaining: 16057500,
@@ -156,6 +183,7 @@ export const annualBudgetList = [
     department: "Local School Board - Elementary",
     accountCode: "1-07-05-990",
     subAccount: "",
+    accountScope: "Project Level",
     annualBudget: 5000000,
     obligated: 25769893.01,
     remaining: -20769893.01,
@@ -171,12 +199,79 @@ export const annualBudgetList = [
     department: "Local School Board - Elementary",
     accountCode: "5-01-01-020",
     subAccount: "",
+    accountScope: "Department Level",
     annualBudget: 13236000,
     obligated: 10098160.65,
     remaining: 3137839.35,
     status: "healthy",
   },
 ];
+
+export const realignmentHistoryList = [
+  {
+    id: "RLN-001",
+    entryDate: "2026-03-05",
+    fundType: "General Fund",
+    expenseType: "MOOE",
+    responsibleOffice: "Office of the Treasurer",
+    description: "Re-align operating allocations to cover urgent repairs.",
+    totalAmount: 1250000,
+    fromLines: 2,
+    toLines: 2,
+    status: "posted" as const,
+  },
+  {
+    id: "RLN-002",
+    entryDate: "2026-03-09",
+    fundType: "Special Education Fund",
+    expenseType: "CO",
+    responsibleOffice: "Local School Board - Elementary",
+    description: "Re-align infrastructure funds for classroom improvements.",
+    totalAmount: 5000000,
+    fromLines: 1,
+    toLines: 1,
+    status: "posted" as const,
+  },
+  {
+    id: "RLN-003",
+    entryDate: "2026-03-11",
+    fundType: "Trust Fund",
+    expenseType: "PS",
+    responsibleOffice: "Office of the Mayor",
+    description: "Re-align personnel services to match staffing adjustments.",
+    totalAmount: 325000,
+    fromLines: 1,
+    toLines: 1,
+    status: "rolled-back" as const,
+  },
+]
+
+export const supplementalHistoryList = [
+  {
+    id: "SUP-001",
+    entryDate: "2026-03-06",
+    description: "Supplemental allocation for emergency procurement.",
+    totalAmount: 800000,
+    entries: 2,
+    status: "posted" as const,
+  },
+  {
+    id: "SUP-002",
+    entryDate: "2026-03-10",
+    description: "Supplemental allocation to support additional program needs.",
+    totalAmount: 1500000,
+    entries: 3,
+    status: "posted" as const,
+  },
+  {
+    id: "SUP-003",
+    entryDate: "2026-03-12",
+    description: "Supplemental entry (duplicate) — rolled back.",
+    totalAmount: 250000,
+    entries: 1,
+    status: "rolled-back" as const,
+  },
+]
 
 export const obligationRequests = [
   {

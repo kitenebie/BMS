@@ -54,7 +54,7 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-[680px] p-0 overflow-hidden gap-0 dark:bg-slate-900">
+        <DialogContent className="max-w-[680px] p-0 overflow-hidden gap-0">
           <div className="p-6 sm:p-8">
             <DialogHeader className="mb-6">
               <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100">Rollback AIP Clones</DialogTitle>
@@ -93,7 +93,7 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
             </div>
           </div>
 
-          <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 sm:px-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-[#F0F0F0]/70 dark:bg-[#12121a]/50 px-6 py-4 sm:px-8 border-t border-slate-300/70 dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-xl">
             <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
               This action removes cloned records for one year only.
             </p>
@@ -121,7 +121,7 @@ export function RollbackAipClonesModal({ open, onOpenChange }: RollbackAipClones
 
       {/* Confirmation Dialog */}
       <Dialog open={isConfirming} onOpenChange={setIsConfirming}>
-        <DialogContent className="max-w-md dark:bg-slate-900">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />

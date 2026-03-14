@@ -43,7 +43,7 @@ export function DeleteAipDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md dark:bg-slate-900">
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="text-red-600 dark:text-red-400 flex items-center gap-2">
             <AlertTriangle className="h-5 w-5" />
@@ -55,7 +55,7 @@ export function DeleteAipDialog({
         </DialogHeader>
 
         {aipId && (
-          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-lg p-3 my-2">
+          <div className="bg-[#F0F0F0]/60 dark:bg-[#12121a]/55 border border-slate-300/70 dark:border-white/[0.08] rounded-xl p-3 my-2">
             <p className="text-sm text-slate-500 dark:text-slate-400">
               Record ID: <span className="font-mono font-medium text-slate-900 dark:text-slate-100">{aipId}</span>
             </p>

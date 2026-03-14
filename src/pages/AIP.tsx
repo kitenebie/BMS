@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { motion } from "framer-motion"
 import { Button } from "@/src/components/ui/button"
 import { 
   Plus, 
@@ -26,13 +27,23 @@ export function AIP() {
   return (
     <div className="space-y-6">
       {activeTab === "main" && (
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+        >
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-green-700 dark:text-emerald-500">A.I.P Main</h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-1">This is your Main Annual Investment Plan Table.</p>
+            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-green-400 via-green-300 to-amber-300 bg-clip-text text-transparent">
+              A.I.P Main
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 mt-1">This is your Main Annual Investment Plan Table.</p>
           </div>
           <div className="flex items-center gap-2">
-            <Button className="gap-2" onClick={() => setIsMainModalOpen(true)}>
+            <Button
+              className="gap-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:shadow-green-500/30 shadow-green-xs hover:from-green-600 hover:to-emerald-600 text-white font-semibold"
+              onClick={() => setIsMainModalOpen(true)}
+            >
               <Plus className="h-4 w-4" />
               Add Main AIP
             </Button>
@@ -45,64 +56,85 @@ export function AIP() {
               onOpenChange={setIsAddMainAIPModalOpen}
             />
           </div>
-        </div>
+        </motion.div>
       )}
 
       {activeTab === "program" && (
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+        >
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-orange-500 dark:text-orange-400">A.I.P Program</h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-1">This is your Annual Investment Plan Program Table.</p>
+            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-orange-400 via-orange-300 to-amber-300 bg-clip-text text-transparent">
+              A.I.P Program
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 mt-1">This is your Annual Investment Plan Program Table.</p>
           </div>
           <div className="flex items-center gap-2">
-            <Button className="gap-2 bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 text-white" onClick={() => setIsProgramModalOpen(true)}>
+            <Button className="gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:shadow-orange-500/30 shadow-orange-xs hover:from-orange-600 hover:to-amber-600 text-white font-semibold" onClick={() => setIsProgramModalOpen(true)}>
               <Plus className="h-4 w-4" />
               Add Program
             </Button>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Tabs */}
-      <div className="flex space-x-1 rounded-lg bg-slate-100 dark:bg-slate-900 p-1 w-fit">
-        <button
-          onClick={() => setActiveTab("main")}
-          className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
-            activeTab === "main" 
-              ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-50" 
-              : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
-          }`}
-        >
-          Main AIP
-        </button>
-        <button
-          onClick={() => setActiveTab("program")}
-          className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
-            activeTab === "program" 
-              ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-50" 
-              : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
-          }`}
-        >
-          AIP Program
-        </button>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <div className="flex space-x-1 rounded-xl bg-slate-100/70 dark:bg-[#1a1a24]/60 border border-slate-300/70 dark:border-white/[0.06] p-1 w-fit backdrop-blur-sm">
+          <Button
+            onClick={() => setActiveTab("main")}
+            variant="tab"
+            className={`h-auto px-5 py-2.5 text-sm transition-all ${
+              activeTab === "main" 
+                ? "bg-gradient-to-r from-[#00ff88]/18 to-[#00cc6a]/8 text-emerald-700 border-[#00ff88]/35 dark:text-[#00ff88]"
+                : ""
+            }`}
+          >
+            Main AIP
+          </Button>
+          <Button
+            onClick={() => setActiveTab("program")}
+            variant="tab"
+            className={`hover:shadow-[0_0_20px_rgba(255, 136, 0, 0.4)] hover:from-amber-500/18 hover:to-amber-500/8 active:scale-[0.98] text-sm transition-all ${
+              activeTab === "program" 
+                ? "bg-gradient-to-r from-orange-500/18 to-amber-500/8 text-orange-700 border-orange-500/35 dark:text-orange-300"
+                : ""
+            }`}
+          >
+            AIP Program
+          </Button>
+        </div>
+      </motion.div>
 
       {/* Main Content Card */}
-      {activeTab === "main" ? (
-        <AipMainTable />
-      ) : (
-        <AipProgramTable 
-          isProgramModalOpen={isProgramModalOpen}
-          onProgramModalChange={setIsProgramModalOpen}
-        />
-      )}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {activeTab === "main" ? (
+          <AipMainTable />
+        ) : (
+          <AipProgramTable 
+            isProgramModalOpen={isProgramModalOpen}
+            onProgramModalChange={setIsProgramModalOpen}
+          />
+        )}
+      </motion.div>
 
       {/* Modals */}
-{activeTab === "program" && (
-  <>
-    {/* Modal is rendered in AipProgramTable via props */}
-  </>
-)}
+      {activeTab === "program" && (
+        <>
+          {/* Modal is rendered in AipProgramTable via props */}
+        </>
+      )}
     </div>
   )
 }

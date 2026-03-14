@@ -37,6 +37,8 @@ import {
   SelectValue,
 } from "@/src/components/ui/select"
 
+import { UnsavedChangesDialog } from "./UnsavedChangesDialog"
+
 // Mock Data
 const departments = [
   "2-01-001 | Office of the City Mayor",
@@ -262,12 +264,12 @@ export function MainAnnualInvestmentPlanModal({
         if (!val) handleCloseClick()
       }}>
         <DialogContent 
-          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50 dark:bg-slate-950/50"
+          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl"
           onInteractOutside={handleInteractOutside}
           hideCloseButton
         >
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-5 shadow-sm">
+          <div className="sticky top-0 z-20 bg-[#F0F0F0]/75 dark:bg-[#12121a]/65 border-b border-slate-300/70 dark:border-white/[0.06] px-6 py-5 shadow-sm backdrop-blur-xl">
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-1.5">
@@ -301,9 +303,9 @@ export function MainAnnualInvestmentPlanModal({
             {entries.map((entry, index) => {
               const summary = getEntrySummary(entry)
               return (
-                <div key={entry.id} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div key={entry.id} className="bg-[#F0F0F0]/70 dark:bg-[#12121a]/55 rounded-xl border border-slate-300/70 dark:border-white/[0.08] shadow-sm overflow-hidden">
                   {/* Entry Header */}
-                  <div className="bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 px-5 py-3 flex items-center justify-between">
+                  <div className="bg-slate-50/60 dark:bg-white/[0.03] border-b border-slate-300/70 dark:border-white/[0.06] px-5 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-slate-800 dark:text-slate-200">AIP Entry #{index + 1}</span>
                     </div>
@@ -408,7 +410,7 @@ export function MainAnnualInvestmentPlanModal({
                       </div>
 
                       {/* Live Summary Preview Card */}
-                      <div className="w-full xl:w-80 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shrink-0 flex flex-col">
+                      <div className="w-full xl:w-80 bg-[#F0F0F0]/60 dark:bg-[#12121a]/55 border border-slate-300/70 dark:border-white/[0.08] rounded-xl p-5 shrink-0 flex flex-col">
                         <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-1.5">
                           <Info className="h-3.5 w-3.5" />
                           Classification Preview
@@ -479,7 +481,7 @@ export function MainAnnualInvestmentPlanModal({
           </div>
 
           {/* Sticky Footer */}
-          <div className="sticky bottom-0 z-20 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] dark:shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.5)]">
+          <div className="sticky bottom-0 z-20 bg-[#F0F0F0]/75 dark:bg-[#12121a]/65 border-t border-slate-300/70 dark:border-white/[0.06] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] dark:shadow-[0_-10px_30px_rgba(0,0,0,0.45)] backdrop-blur-xl">
             <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
               <Info className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               {entries.length} AIP master record(s) will be created.
@@ -515,28 +517,11 @@ export function MainAnnualInvestmentPlanModal({
         </DialogContent>
       </Dialog>
 
-      {/* Unsaved Changes Confirmation Dialog */}
-      <Dialog open={showConfirmClose} onOpenChange={setShowConfirmClose}>
-        <DialogContent className="max-w-md dark:bg-slate-900">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
-              <AlertTriangle className="h-5 w-5" />
-              Unsaved Changes
-            </DialogTitle>
-            <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
-              You have unsaved changes. Are you sure you want to close this form? All your progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setShowConfirmClose(false)}>
-              Continue Editing
-            </Button>
-            <Button variant="destructive" onClick={confirmClose}>
-              Discard Changes
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <UnsavedChangesDialog
+        open={showConfirmClose}
+        onOpenChange={setShowConfirmClose}
+        onConfirm={confirmClose}
+      />
     </>
   )
 }

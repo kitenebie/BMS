@@ -40,6 +40,8 @@ import {
   SelectValue,
 } from "@/src/components/ui/select"
 
+import { UnsavedChangesDialog } from "./UnsavedChangesDialog"
+
 // Mock Data
 const departments = [
   "2-01-001 | Office of the City Mayor",
@@ -334,12 +336,12 @@ export function AddMainAIPModal({
         if (!val) handleCloseClick()
       }}>
         <DialogContent 
-          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl bg-slate-50/50 dark:bg-slate-950/50"
+          className="max-w-[1400px] w-[95vw] p-0 overflow-hidden gap-0 rounded-2xl"
           onInteractOutside={handleInteractOutside}
           hideCloseButton
         >
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-5 shadow-sm">
+          <div className="sticky top-0 z-20 bg-[#F0F0F0]/75 dark:bg-[#12121a]/65 border-b border-slate-300/70 dark:border-white/[0.06] px-6 py-5 shadow-sm backdrop-blur-xl">
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-1.5">
@@ -393,11 +395,11 @@ export function AddMainAIPModal({
             {aipBlocks.map((block, blockIndex) => (
               <div 
                 key={block.id} 
-                className={`bg-white dark:bg-slate-900 rounded-xl border shadow-sm overflow-hidden ${blockIndex > 0 ? 'border-indigo-200 dark:border-indigo-800 ring-1 ring-indigo-100 dark:ring-indigo-900' : 'border-slate-200 dark:border-slate-800'}`}
+                className={`bg-[#F0F0F0]/70 dark:bg-[#12121a]/55 rounded-xl border shadow-sm overflow-hidden ${blockIndex > 0 ? 'border-indigo-200/80 dark:border-indigo-500/25 ring-1 ring-indigo-100/80 dark:ring-indigo-500/10' : 'border-slate-300/70 dark:border-white/[0.08]'}`}
               >
                 {/* AIP Block Header */}
                 {aipBlocks.length > 1 && (
-                  <div className="bg-indigo-50 dark:bg-indigo-950/30 border-b border-indigo-100 dark:border-indigo-900/50 px-5 py-2.5 flex items-center justify-between">
+                  <div className="bg-indigo-50/70 dark:bg-indigo-500/10 border-b border-indigo-100/70 dark:border-indigo-500/20 px-5 py-2.5 flex items-center justify-between">
                     <span className="text-sm font-semibold text-indigo-800 dark:text-indigo-300 flex items-center gap-2">
                       <Badge variant="secondary" className="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400">
                         AIP #{blockIndex + 1}
@@ -450,7 +452,7 @@ export function AddMainAIPModal({
 
                   {/* SECTION: AIP Information */}
                   <section className="space-y-5">
-                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+                    <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2 pb-2 border-b border-slate-300/70 dark:border-white/[0.06]">
                       <Layers3 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
                       AIP Information
                     </h3>
@@ -751,7 +753,7 @@ export function AddMainAIPModal({
           </div>
 
           {/* Sticky Footer */}
-          <div className="sticky bottom-0 z-20 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+          <div className="sticky bottom-0 z-20 bg-[#F0F0F0]/75 dark:bg-[#12121a]/65 border-t border-slate-300/70 dark:border-white/[0.06] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] dark:shadow-[0_-10px_30px_rgba(0,0,0,0.45)] backdrop-blur-xl">
             <p className="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
               <Info className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               {aipBlocks.length} AIP block(s) ready to save
@@ -787,28 +789,11 @@ export function AddMainAIPModal({
         </DialogContent>
       </Dialog>
 
-      {/* Unsaved Changes Confirmation Dialog */}
-      <Dialog open={showConfirmClose} onOpenChange={setShowConfirmClose}>
-        <DialogContent className="max-w-md dark:bg-slate-900">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
-              <AlertTriangle className="h-5 w-5" />
-              Unsaved Changes
-            </DialogTitle>
-            <DialogDescription className="text-base text-slate-600 dark:text-slate-400 pt-2">
-              You have unsaved changes. Are you sure you want to close this form? All your progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setShowConfirmClose(false)}>
-              Continue Editing
-            </Button>
-            <Button variant="destructive" onClick={confirmClose}>
-              Discard Changes
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <UnsavedChangesDialog
+        open={showConfirmClose}
+        onOpenChange={setShowConfirmClose}
+        onConfirm={confirmClose}
+      />
     </>
   )
 }

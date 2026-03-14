@@ -77,21 +77,21 @@ export function TablePagination({
   }
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 gap-4">
-      <div className="text-sm text-slate-500 dark:text-slate-400">
-        Showing <span className="font-medium text-slate-900 dark:text-slate-100">{startItem}</span> to{" "}
-        <span className="font-medium text-slate-900 dark:text-slate-100">{endItem}</span> of{" "}
-        <span className="font-medium text-slate-900 dark:text-slate-100">{totalItems}</span> AIP entries
+    <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-slate-300/70 dark:border-white/[0.08] bg-[#F0F0F0]/70 dark:bg-[#12121a]/50 backdrop-blur-xl gap-4">
+      <div className="text-sm text-slate-600 dark:text-slate-400">
+        Showing <span className="font-medium text-slate-900 dark:text-white">{startItem}</span> to{" "}
+        <span className="font-medium text-slate-900 dark:text-white">{endItem}</span> of{" "}
+        <span className="font-medium text-slate-900 dark:text-white">{totalItems}</span> AIP entries
       </div>
 
       <div className="flex items-center gap-4 sm:gap-6">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 hidden sm:block">Rows per page</p>
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-400 hidden sm:block">Rows per page</p>
           <Select
             value={pageSize.toString()}
             onValueChange={(value) => onPageSizeChange(Number(value))}
           >
-            <SelectTrigger className="h-8 w-[70px] text-xs bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 dark:text-slate-100">
+            <SelectTrigger className="h-8 w-[70px] text-xs">
               <SelectValue placeholder={pageSize.toString()} />
             </SelectTrigger>
             <SelectContent side="top">
@@ -106,8 +106,9 @@ export function TablePagination({
 
         <div className="flex items-center gap-1">
           <Button
-            variant="outline"
-            className="h-8 w-8 p-0 hidden sm:flex dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
+            variant="tab"
+            size="icon"
+            className="h-8 w-8 hidden sm:flex"
             onClick={handleFirst}
             disabled={currentPage === 1}
             aria-label="Go to first page"
@@ -115,8 +116,9 @@ export function TablePagination({
             <ChevronsLeft className="h-4 w-4" />
           </Button>
           <Button
-            variant="outline"
-            className="h-8 w-8 p-0 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
+            variant="tab"
+            size="icon"
+            className="h-8 w-8"
             onClick={handlePrevious}
             disabled={currentPage === 1}
             aria-label="Go to previous page"
@@ -128,12 +130,9 @@ export function TablePagination({
             {getPageNumbers().map((page) => (
               <Button
                 key={page}
-                variant={currentPage === page ? "default" : "ghost"}
-                className={`h-8 w-8 p-0 text-sm ${
-                  currentPage === page 
-                    ? "bg-emerald-600 hover:bg-emerald-700 text-white" 
-                    : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
-                }`}
+                variant="tab"
+                size="icon"
+                className={`h-8 w-8 text-sm ${currentPage === page ? "bg-gradient-to-r from-[#00ff88]/18 to-[#00cc6a]/8 text-emerald-700 border-[#00ff88]/35 dark:text-[#00ff88]" : ""}`}
                 onClick={() => onPageChange(page)}
                 aria-label={`Go to page ${page}`}
                 aria-current={currentPage === page ? "page" : undefined}
@@ -144,8 +143,9 @@ export function TablePagination({
           </div>
 
           <Button
-            variant="outline"
-            className="h-8 w-8 p-0 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
+            variant="tab"
+            size="icon"
+            className="h-8 w-8"
             onClick={handleNext}
             disabled={currentPage === totalPages || totalPages === 0}
             aria-label="Go to next page"
@@ -153,8 +153,9 @@ export function TablePagination({
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button
-            variant="outline"
-            className="h-8 w-8 p-0 hidden sm:flex dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
+            variant="tab"
+            size="icon"
+            className="h-8 w-8 hidden sm:flex"
             onClick={handleLast}
             disabled={currentPage === totalPages || totalPages === 0}
             aria-label="Go to last page"

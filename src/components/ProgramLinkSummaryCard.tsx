@@ -16,14 +16,14 @@ export function ProgramLinkSummaryCard({
   sector,
 }: ProgramLinkSummaryCardProps) {
   return (
-    <div className="mt-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 p-4 relative overflow-hidden">
+    <div className="mt-4 rounded-xl bg-[#F0F0F0]/65 dark:bg-[#12121a]/55 border border-slate-300/70 dark:border-white/[0.08] p-4 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 dark:bg-indigo-400" />
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <Badge variant="secondary" className="bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 font-medium text-xs">
             Linked Program
           </Badge>
-          <div className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium bg-white dark:bg-slate-900 px-2 py-1 rounded border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium bg-[#F0F0F0]/80 dark:bg-[#0a0a0f]/25 px-2 py-1 rounded border border-slate-300/70 dark:border-white/[0.08] shadow-sm">
             {aipProgramCode}
           </div>
         </div>

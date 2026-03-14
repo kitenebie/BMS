@@ -3,16 +3,19 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/src/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-xl px-2.5 py-1 text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00ff88] focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-[#0a0a0f]",
   {
     variants: {
       variant: {
-        default: "border-transparent bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-700",
-        secondary: "border-transparent bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700",
-        destructive: "border-transparent bg-red-500 text-white hover:bg-red-600 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800",
-        outline: "text-slate-950 dark:text-slate-100 dark:border-slate-800",
-        success: "border-transparent bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400",
-        warning: "border-transparent bg-amber-100 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400",
+        default: "border border-[#00ff88]/20 bg-gradient-to-r from-[#00ff88]/20 to-[#00cc6a]/10 text-[#00ff88]",
+        secondary:
+          "border border-slate-300/70 bg-slate-100 text-slate-700 dark:border-white/[0.1] dark:bg-[#2a2a3a]/50 dark:text-slate-300",
+        destructive: "border border-red-500/20 bg-gradient-to-r from-red-500/20 to-red-600/10 text-red-400",
+        outline: "border border-slate-300/70 text-slate-700 dark:border-white/[0.1] dark:text-slate-300",
+        success: "border border-[#00ff88]/20 bg-gradient-to-r from-[#00ff88]/20 to-[#00cc6a]/10 text-[#00ff88]",
+        warning: "border border-amber-500/20 bg-gradient-to-r from-amber-500/20 to-amber-600/10 text-amber-400",
+        info: "border border-[#00d4ff]/20 bg-gradient-to-r from-[#00d4ff]/20 to-[#00a8cc]/10 text-[#00d4ff]",
+        purple: "border border-purple-500/20 bg-gradient-to-r from-purple-500/20 to-purple-600/10 text-purple-400",
       },
     },
     defaultVariants: {
